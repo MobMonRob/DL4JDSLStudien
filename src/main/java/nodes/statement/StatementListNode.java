@@ -1,5 +1,6 @@
 package nodes.statement;
 
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 
 import java.util.Arrays;
@@ -15,12 +16,12 @@ public class StatementListNode extends StatementNode {
     }
 
     @Override
-    public void execute(SymbolTable symbolTable) {
-        Arrays.stream(statementNodes).forEach(statementNode -> statementNode.execute(symbolTable));
+    public void execute(SymbolTable symbolTable, FunctionTable functionTable) {
+        Arrays.stream(statementNodes).forEach(statementNode -> statementNode.execute(symbolTable, functionTable));
     }
 
-    public boolean executeNext(SymbolTable symbolTable) {
-        statementNodes[executionCount].execute(symbolTable);
+    public boolean executeNext(SymbolTable symbolTable, FunctionTable functionTable) {
+        statementNodes[executionCount].execute(symbolTable, functionTable);
         executionCount++;
         return executionCount < statementNodes.length;
     }

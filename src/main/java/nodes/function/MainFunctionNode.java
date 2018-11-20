@@ -1,6 +1,7 @@
 package nodes.function;
 
 import main.PreProDataSet;
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.statement.StatementListNode;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -23,7 +24,7 @@ public class MainFunctionNode extends FunctionNode {
         this.exportDefinitions = exportDefinitions;
     }
 
-    public PreProDataSet executeMainFunction(PreProDataSet preProDataSet) {
+    public PreProDataSet executeMainFunction(PreProDataSet preProDataSet, FunctionTable functionTable) {
         SymbolTable symbolTable = new SymbolTable();
 
         for (ParameterDefinition parameterDefinition : importDefinitions) {
@@ -32,7 +33,7 @@ public class MainFunctionNode extends FunctionNode {
             symbolTable.setValue(parameterDefinition.getVariableName(), variable);
         }
 
-        statementListNode.execute(symbolTable);
+        statementListNode.execute(symbolTable, functionTable);
 
         if (exportDefinitions.size() == 0) { // No exports needed, return empty PreProDataSet
             return new PreProDataSet(new DataSet(), new String[0], new int[0][0]);

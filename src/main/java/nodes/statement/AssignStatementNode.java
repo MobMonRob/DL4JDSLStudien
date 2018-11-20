@@ -1,5 +1,6 @@
 package nodes.statement;
 
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 import nodes.function.FunctionCallNode;
@@ -38,8 +39,8 @@ public class AssignStatementNode extends StatementNode {
     }
 
     @Override
-    public void execute(SymbolTable symbolTable) {
-        Variable value = expressionNode.execute(symbolTable);
+    public void execute(SymbolTable symbolTable, FunctionTable functionTable) {
+        Variable value = expressionNode.execute(symbolTable, functionTable);
 
         if(value == null && expressionNode instanceof FunctionCallNode) {
             throw new RuntimeException("The call to function " + ((FunctionCallNode) expressionNode).getFunctionName()

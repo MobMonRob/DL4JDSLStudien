@@ -6,17 +6,9 @@ function main() {
 	vec3 y = s X x;
 	vec3 z = y X x;
 
-	printResults(x, y, z);
-
 	export x, y, z;
 }
 
 function calculateDifference(vec3 p1, vec3 p2) returns vec3 {
 	return p2 - p1;
-}
-
-function printResults(vec3 x, vec3 y, vec3 z) {
-	print x;
-	print y;
-	print z;
 }

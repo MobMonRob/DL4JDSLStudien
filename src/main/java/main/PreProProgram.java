@@ -1,5 +1,6 @@
 package main;
 
+import nodes.FunctionTable;
 import nodes.MainNode;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -24,6 +25,7 @@ public class PreProProgram {
 
     public PreProDataSet execute(PreProDataSet preProDataSet) {
         System.out.println("\n\nStarting PrePro-Interpreter...\n");
+
         System.out.println("\nInput-PreProDataSet contains:\n" + Arrays.toString(preProDataSet.getVariableNames()));
 
         PreProDataSet result = mainNode.execute(preProDataSet);

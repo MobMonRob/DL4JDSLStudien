@@ -1,5 +1,6 @@
 package nodes.statement;
 
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 
@@ -24,9 +25,9 @@ public class PrintStatementNode extends StatementNode {
         this.text = text;
     }
 
-    public void execute(SymbolTable symbolTable) {
+    public void execute(SymbolTable symbolTable, FunctionTable functionTable) {
         if (printExpressionAndNotText) {
-            OUTPUT_STREAM.println(expressionNode.execute(symbolTable));
+            OUTPUT_STREAM.println(expressionNode.execute(symbolTable, functionTable));
         } else {
             OUTPUT_STREAM.println(text);
         }

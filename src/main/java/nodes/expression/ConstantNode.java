@@ -1,5 +1,6 @@
 package nodes.expression;
 
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import variables.Variable;
 
@@ -11,7 +12,7 @@ public class ConstantNode extends ExpressionNode {
     }
 
     @Override
-    public Variable execute(SymbolTable symbolTable) {
+    public Variable execute(SymbolTable symbolTable, FunctionTable functionTable) {
         return value;
     }
 }

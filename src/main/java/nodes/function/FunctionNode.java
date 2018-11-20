@@ -1,6 +1,7 @@
 package nodes.function;
 
 import com.oracle.truffle.api.nodes.Node;
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 import nodes.statement.StatementListNode;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionNode extends Node {
-    private final String name;
     protected final List<ParameterDefinition> parameterDefinitions;
+    private final String name;
     private final VariableType returnType; /* null, if returnType = void */
     private final ExpressionNode returnExpression;
 
@@ -24,15 +25,15 @@ public class FunctionNode extends Node {
      */
     public FunctionNode(String name, String returnType, List<ParameterDefinition> parameterDefinitions, StatementListNode statementListNode, ExpressionNode returnExpression) {
         this.name = name;
-        if(returnType == null) {
+        if (returnType == null) {
             this.returnType = null;
             this.returnExpression = null;
-            if(returnExpression != null) {
+            if (returnExpression != null) {
                 throw new RuntimeException("Function " + name + " must have NO return statement or return a value.");
             }
         } else {
             this.returnType = VariableType.getTypeForText(returnType);
-            if(returnExpression == null) {
+            if (returnExpression == null) {
                 throw new RuntimeException("Function " + name + " must have an return statement.");
             }
             this.returnExpression = returnExpression;
@@ -50,10 +51,9 @@ public class FunctionNode extends Node {
     }
 
     /**
-     *
      * @return null, if the function is void
      */
-    public Variable execute(Arguments arguments) {
+    public Variable execute(Arguments arguments, FunctionTable functionTable) {
         if (parameterDefinitions.size() != arguments.getValues().length) {
             throw new RuntimeException("Number of Argument for the function \"" + name + "\" differs.");
         }
@@ -68,12 +68,12 @@ public class FunctionNode extends Node {
 
             symbolTable.setValue(parameterDefinitions.get(i).getVariableName(), value);
         }
-        statementListNode.execute(symbolTable);
+        statementListNode.execute(symbolTable, functionTable);
 
-        if(returnType == null) { // void function
+        if (returnType == null) { // void function
             return null;
         } else {
-            return returnExpression.execute(symbolTable);
+            return returnExpression.execute(symbolTable, functionTable);
         }
     }
 }

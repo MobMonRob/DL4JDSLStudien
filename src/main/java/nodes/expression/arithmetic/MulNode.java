@@ -1,5 +1,6 @@
 package nodes.expression.arithmetic;
 
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 import variables.Variable;
@@ -16,9 +17,9 @@ public class MulNode extends ExpressionNode {
     }
 
     @Override
-    public Variable execute(SymbolTable symbolTable) {
-        Variable leftValue = left.execute(symbolTable);
-        Variable rightValue = right.execute(symbolTable);
+    public Variable execute(SymbolTable symbolTable, FunctionTable functionTable) {
+        Variable leftValue = left.execute(symbolTable, functionTable);
+        Variable rightValue = right.execute(symbolTable, functionTable);
 
         if (leftValue instanceof Vector3 && rightValue instanceof Vector3) {
             return new Vector3(((Vector3) leftValue).getNdArray().mul(((Vector3) rightValue).getNdArray()));

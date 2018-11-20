@@ -1,6 +1,7 @@
 package nodes.debugging;
 
 import debbuging.DebuggerInstance;
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.statement.StatementNode;
 
@@ -14,7 +15,7 @@ public class DebugNode extends StatementNode {
     }
 
     @Override
-    public void execute(SymbolTable symbolTable) {
-        debuggerInstance.wait(symbolTable, lineNumber);
+    public void execute(SymbolTable symbolTable, FunctionTable functionTable) {
+        debuggerInstance.wait(symbolTable, functionTable, lineNumber);
     }
 }

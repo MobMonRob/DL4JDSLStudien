@@ -13,8 +13,6 @@ public class AutoComplete {
     private Set<String> possibilities;
 
     public Set<String> tryAutoComplete(String previousProgram) {
-
-        FunctionTable.getInstance().reset();
         PreProLexer lexer = new PreProLexer(CharStreams.fromString(previousProgram));
         PreProParser parser = new PreProParser(new CommonTokenStream(lexer));
 

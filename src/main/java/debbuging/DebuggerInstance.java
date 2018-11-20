@@ -1,6 +1,7 @@
 package debbuging;
 
 import com.oracle.truffle.api.nodes.Node;
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 import nodes.statement.StatementNode;
@@ -31,7 +32,7 @@ public class DebuggerInstance implements Debugger {
     }
 
     @Override
-    public void wait(SymbolTable symbolTable, int lineNumber) {
+    public void wait(SymbolTable symbolTable, FunctionTable functionTable, int lineNumber) {
         while (true) {
             System.out.print("(" + lineNumber + ")> ");
 
@@ -47,7 +48,7 @@ public class DebuggerInstance implements Debugger {
                     break;
                 default:
                     if (input.startsWith("eval")) {
-                        System.out.println(evaluateExpression(input.substring(5), symbolTable));
+                        System.out.println(evaluateExpression(input.substring(5), symbolTable, functionTable));
                     } else {
                         System.out.println("Error: Command \"" + input + "\" not found.");
                     }
@@ -56,7 +57,7 @@ public class DebuggerInstance implements Debugger {
         }
     }
 
-        private static String evaluateExpression(String expression, SymbolTable symbolTable) {
+        private static String evaluateExpression(String expression, SymbolTable symbolTable, FunctionTable functionTable) {
 
             try {
                 PreProLexer lexer = new PreProLexer(CharStreams.fromString(expression));
@@ -64,12 +65,12 @@ public class DebuggerInstance implements Debugger {
                 parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
                 Node evalNode = parser.statement().result;
                 if (evalNode != null) {
-                    ((StatementNode) evalNode).execute(symbolTable);
+                    ((StatementNode) evalNode).execute(symbolTable, functionTable);
                     return "Executed";
                 } else {
                     lexer.reset();
                     evalNode = new PreProParser(new CommonTokenStream(lexer)).expression().result;
-                    return ((ExpressionNode) evalNode).execute(symbolTable).toString();
+                    return ((ExpressionNode) evalNode).execute(symbolTable, functionTable).toString();
                 }
             } catch (RuntimeException e) {
                 e.printStackTrace();

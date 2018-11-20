@@ -1,5 +1,6 @@
 package nodes.expression.arithmetic;
 
+import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -18,9 +19,9 @@ public class CrossProductNode extends ExpressionNode {
     }
 
     @Override
-    public Variable execute(SymbolTable symbolTable) {
-        Variable leftValue = left.execute(symbolTable);
-        Variable rightValue = right.execute(symbolTable);
+    public Variable execute(SymbolTable symbolTable, FunctionTable functionTable) {
+        Variable leftValue = left.execute(symbolTable, functionTable);
+        Variable rightValue = right.execute(symbolTable, functionTable);
 
         if (leftValue instanceof Vector3 && rightValue instanceof Vector3) {
             return crossProduct((Vector3) leftValue, (Vector3) rightValue);

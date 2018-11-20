@@ -8,7 +8,7 @@ import nodes.function.MainFunctionNode;
 import java.util.Arrays;
 
 public class MainNode extends Node {
-    private final FunctionTable functionTable = FunctionTable.getInstance();
+    private final FunctionTable functionTable = new FunctionTable();
 
     public MainNode(FunctionNode[] functionNodes) {
         Arrays.stream(functionNodes).forEach(
@@ -19,6 +19,6 @@ public class MainNode extends Node {
     public PreProDataSet execute(PreProDataSet preProDataSet) {
         MainFunctionNode mainFunctionNode = (MainFunctionNode) functionTable.getFunction("main");
 
-        return mainFunctionNode.executeMainFunction(preProDataSet);
+        return mainFunctionNode.executeMainFunction(preProDataSet, functionTable);
     }
 }

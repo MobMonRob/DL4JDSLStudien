@@ -5,20 +5,8 @@ import nodes.function.FunctionNode;
 import java.util.HashMap;
 
 public class FunctionTable {
-    private static FunctionTable instance;
 
     private HashMap<String, FunctionNode> functions = new HashMap<>();
-
-    private FunctionTable() {
-
-    }
-
-    public static FunctionTable getInstance() {
-        if (instance == null) {
-            instance = new FunctionTable();
-        }
-        return instance;
-    }
 
     public void addFunction(FunctionNode function) {
         if (functions.containsKey(function.getName())) {

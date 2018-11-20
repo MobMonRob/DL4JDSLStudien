@@ -6,6 +6,7 @@ import org.nd4j.linalg.factory.Nd4j;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PreProDataSet {
     private final DataSet dataSet;
@@ -19,8 +20,9 @@ public class PreProDataSet {
     }
 
     public PreProDataSet(List<INDArray> variables, List<String> variableNames) {
-        assert variables.size() > 0;
-        assert variables.size() == variableNames.size();
+        if (variables.size() == 0 || (variables.size() != variableNames.size())) {
+            throw new RuntimeException();
+        }
 
         int maxCountDataElements = variables.stream()
                 .mapToInt(INDArray::length)
@@ -56,9 +58,25 @@ public class PreProDataSet {
     @Override
     public String toString() {
         return "PreProDataSet{" +
-                "dataSet=" + dataSet +
-                ", variableNames=" + Arrays.toString(variableNames) +
-                ", variableShapes=" + Arrays.toString(variableShapes) +
+                "\ndataSet=" + toString(dataSet) +
+                "variableNames=" + Arrays.toString(variableNames) +
+                "\nvariableShapes=" + toString(variableShapes) +
                 '}';
+    }
+
+    private String toString(int[][] variableShapes) {
+        return Arrays.stream(variableShapes)
+                .map(Arrays::toString)
+                .collect(Collectors.joining("\n"));
+    }
+
+    private String toString(DataSet dataSet) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < dataSet.getFeatures().shape()[0]; i++) {
+            INDArray array = dataSet.getFeatures().getRow(i);
+            result.append(array);
+            result.append('\n');
+        }
+        return result.toString();
     }
 }
