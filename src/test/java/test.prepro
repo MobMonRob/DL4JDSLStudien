@@ -1,0 +1,29 @@
+function main() {
+	import vec3 p1, vec3 p2, vec3 p3;
+
+	vec3 x = p2 - p1;
+	vec3 s = p3 - p1;
+	vec3 y = s X x;
+	vec3 z = y X x;
+
+	printXYZ(x, y, z);
+
+	export p1, p2, p3, s, x, y, z;
+}
+
+function printXYZ(vec3 x, vec3 y, vec3 z) {
+	//print "Berechnet (x, y, z):";
+	//print x;
+	//print y;
+	//print z;
+}
+
+/*
+Dataset + List von Namen
+=> Vars unter diesem Namen in main verfügbar
+(?) Nachladen durch dataset
+
+Ausarbeitung: Problem call by value/reference
+
+(nach Syntaxhigh) Überladung? -> JA, auch auf Typ, nicht nur Anzahl!
+*/
