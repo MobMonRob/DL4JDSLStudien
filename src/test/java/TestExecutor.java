@@ -6,6 +6,8 @@ import org.nd4j.linalg.factory.Nd4j;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,6 +16,8 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 
 public class TestExecutor {
+    private static final PrintStream SYSTEM_OUT = System.out;
+
     private static final PreProDataSet TEST_PRE_PRO_DATA_SET = createTestPreProDataSet();
 
     private static PreProDataSet createTestPreProDataSet() {
@@ -28,8 +32,16 @@ public class TestExecutor {
     }
 
     @Test
-    public void runBlackboxTests() throws IOException {
+    public void runTests() throws IOException {
+
+        System.setOut(new PrintStream(new OutputStream() {
+            @Override
+            public void write(int b) {
+            }
+        }));
+
         for (File file : getAllTestFilesAndCheckIfOutputExists()) {
+            SYSTEM_OUT.println("Testing " + file.getName());
             testFile(file);
         }
     }
