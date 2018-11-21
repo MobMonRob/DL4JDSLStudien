@@ -1,6 +1,6 @@
 package main;
 
-import nodes.FunctionTable;
+import dataset.PreProDataSet;
 import nodes.MainNode;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -8,7 +8,6 @@ import parser.PreProLexer;
 import parser.PreProParser;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class PreProProgram {
     private final MainNode mainNode;
@@ -26,11 +25,11 @@ public class PreProProgram {
     public PreProDataSet execute(PreProDataSet preProDataSet) {
         System.out.println("\n\nStarting PrePro-Interpreter...\n");
 
-        System.out.println("\nInput-PreProDataSet contains:\n" + Arrays.toString(preProDataSet.getVariableNames()));
+        System.out.println("\nInput-PreProDataSet contains:\n" + preProDataSet.getVariableNames());
 
         PreProDataSet result = mainNode.execute(preProDataSet);
 
-        System.out.println("\nOutput-PreProDataSet contains:\n" + Arrays.toString(result.getVariableNames()));
+        System.out.println("\nOutput-PreProDataSet contains:\n" + result.getVariableNames());
         return result;
     }
 }

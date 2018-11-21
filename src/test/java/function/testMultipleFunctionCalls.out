@@ -1,4 +1,15 @@
-PreProDataSet{
-dataSet=[0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00]
-variableNames=[result]
-variableShapes=[4, 3]}
+DefaultPreProDataSet{
+dataSetEntries=
+[DataSetEntry{variableName='result', variableShape=[4, 3], startColumn=0, length=3}],
+dataSet=
+[[0.00,  0.00,  0.00],  
+ [0.00,  0.00,  0.00],  
+ [0.00,  0.00,  0.00],  
+ [0.00,  0.00,  0.00]]
+
+calculated_variables=
+result=[[0.00,  0.00,  0.00],  
+ [0.00,  0.00,  0.00],  
+ [0.00,  0.00,  0.00],  
+ [0.00,  0.00,  0.00]]
+}

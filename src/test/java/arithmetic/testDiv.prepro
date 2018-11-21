@@ -1,7 +1,7 @@
 function main() {
     import vec3 p1, vec3 p2;
 
-    vec3 div = p1 / p2;
+    vec3 div = p2 / p1;
 
     export div;
 }

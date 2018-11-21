@@ -1,6 +1,19 @@
-PreProDataSet{
-dataSet=[42.00,  0.00,  0.00,  0.00,  0.00,  1.00,  0.00,  1.00,  0.00,  1.00,  0.00,  0.00]
-[42.00,  0.00,  1.00,  0.00,  1.00,  1.00,  1.00,  1.00,  0.00,  1.00,  0.00,  1.00]
-variableNames=[p1, p3]
-variableShapes=[4, 3]
-[4, 3]}
+DefaultPreProDataSet{
+dataSetEntries=
+[DataSetEntry{variableName='p1', variableShape=[4, 3], startColumn=0, length=3}, DataSetEntry{variableName='p3', variableShape=[4, 3], startColumn=3, length=3}],
+dataSet=
+[[42.00,  0.00,  0.00,  42.00,  0.00,  1.00],  
+ [1.00,  0.00,  0.00,  1.00,  0.00,  1.00],  
+ [5.00,  0.00,  0.00,  5.00,  0.00,  1.00],  
+ [6.00,  0.00,  0.00,  6.00,  0.00,  1.00]]
+
+calculated_variables=
+p1=[[42.00,  0.00,  0.00],  
+ [1.00,  0.00,  0.00],  
+ [5.00,  0.00,  0.00],  
+ [6.00,  0.00,  0.00]]
+p3=[[42.00,  0.00,  1.00],  
+ [1.00,  0.00,  1.00],  
+ [5.00,  0.00,  1.00],  
+ [6.00,  0.00,  1.00]]
+}

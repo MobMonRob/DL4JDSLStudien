@@ -1,4 +1,15 @@
-PreProDataSet{
-dataSet=[0.98,   NaN,   NaN,  0.00,   NaN,   NaN,  0.83,   NaN,   NaN,  0.86,   NaN,   NaN]
-variableNames=[div]
-variableShapes=[4, 3]}
+DefaultPreProDataSet{
+dataSetEntries=
+[DataSetEntry{variableName='div', variableShape=[4, 3], startColumn=0, length=3}],
+dataSet=
+[[1.02,   NaN,   NaN],  
+ [44,662.00,   NaN,   NaN],  
+ [1.20,   NaN,   NaN],  
+ [1.17,   NaN,   NaN]]
+
+calculated_variables=
+div=[[1.02,   NaN,   NaN],  
+ [44,662.00,   NaN,   NaN],  
+ [1.20,   NaN,   NaN],  
+ [1.17,   NaN,   NaN]]
+}

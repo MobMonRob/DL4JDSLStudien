@@ -1,4 +1,4 @@
-package main;
+package dataset;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -8,18 +8,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PreProDataSet {
+@Deprecated
+public class OldPreProDataSet implements PreProDataSet {
     private final DataSet dataSet;
     private final String[] variableNames;
     private final int[][] variableShapes;
 
-    public PreProDataSet(DataSet dataSet, String[] variableNames, int[][] variableShapes) {
+    public OldPreProDataSet(DataSet dataSet, String[] variableNames, int[][] variableShapes) {
         this.dataSet = dataSet;
         this.variableNames = variableNames;
         this.variableShapes = variableShapes;
     }
 
-    public PreProDataSet(List<INDArray> variables, List<String> variableNames) {
+    public OldPreProDataSet(List<INDArray> variables, List<String> variableNames) {
         if (variables.size() == 0 || (variables.size() != variableNames.size())) {
             throw new RuntimeException();
         }
@@ -29,10 +30,10 @@ public class PreProDataSet {
                 .max()
                 .orElse(0);
 
-        INDArray features = Nd4j.create(new int[]{variables.size(), maxCountDataElements});
+        INDArray features = Nd4j.create(new int[]{maxCountDataElements, variables.size()});
         int[][] variableShapes = new int[variables.size()][];
         for (int i = 0; i < variables.size(); i++) {
-            features.putRow(i, variables.get(i));
+            features.putColumn(i, variables.get(i));
             variableShapes[i] = variables.get(i).shape();
         }
         this.dataSet = new DataSet(features, null);
@@ -40,6 +41,7 @@ public class PreProDataSet {
         this.variableShapes = variableShapes;
     }
 
+    @Override
     public INDArray getVariable(String variableName) {
         for (int i = 0; i < dataSet.getFeatures().shape()[0]; i++) {
             if (variableNames[i].equals(variableName)) {
@@ -51,8 +53,10 @@ public class PreProDataSet {
         throw new RuntimeException("Variable " + variableName + " not found in the DataSet.");
     }
 
-    public String[] getVariableNames() {
-        return variableNames;
+    @Override
+    public List<String> getVariableNames() {
+        return Arrays.stream(variableNames)
+                .collect(Collectors.toList());
     }
 
     @Override

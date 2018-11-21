@@ -1,6 +1,7 @@
 package nodes.function;
 
-import main.PreProDataSet;
+import dataset.DefaultPreProDataSet;
+import dataset.PreProDataSet;
 import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.statement.StatementListNode;
@@ -36,7 +37,7 @@ public class MainFunctionNode extends FunctionNode {
         statementListNode.execute(symbolTable, functionTable);
 
         if (exportDefinitions.size() == 0) { // No exports needed, return empty PreProDataSet
-            return new PreProDataSet(new DataSet(), new String[0], new int[0][0]);
+            return new DefaultPreProDataSet(new DataSet(), new ArrayList<>());
         }
 
         List<INDArray> variables = exportDefinitions.stream()
@@ -44,7 +45,7 @@ public class MainFunctionNode extends FunctionNode {
                 .map(Variable::getNdArray)
                 .collect(Collectors.toList());
 
-        return new PreProDataSet(variables, exportDefinitions);
+        return new DefaultPreProDataSet(variables, exportDefinitions);
     }
 
     private Variable getVariableForType(Class type, INDArray array) {
@@ -53,22 +54,4 @@ public class MainFunctionNode extends FunctionNode {
         }
         throw new RuntimeException();
     }
-
-//    public void execute(Arguments arguments) {
-//        if (parameterDefinitions.size() != arguments.getValues().length) {
-//            throw new RuntimeException("Number of Argument for the function \"" + name + "\" differs.");
-//        }
-//        SymbolTable symbolTable = new SymbolTable();
-//        for (int i = 0; i < parameterDefinitions.size(); i++) {
-//
-//            Variable value = arguments.getValues()[i];
-//
-//            if (value.getClass() != parameterDefinitions.get(i).getVariableType()) {
-//                throw new RuntimeException("Wrong type of parameter " + parameterDefinitions.get(i).getVariableName() + ".");
-//            }
-//
-//            symbolTable.setValue(parameterDefinitions.get(i).getVariableName(), value);
-//        }
-//        statementListNode.execute(symbolTable);
-//    }
 }

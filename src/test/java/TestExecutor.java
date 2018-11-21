@@ -1,4 +1,5 @@
-import main.PreProDataSet;
+import dataset.DefaultPreProDataSet;
+import dataset.PreProDataSet;
 import main.PreProProgram;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class TestExecutor {
         INDArray p2 = Nd4j.create(new double[]{43, 0, 0, 44662, 0, 0, 6, 0, 0, 7, 0, 0}, new int[]{4, 3});
         INDArray p3 = Nd4j.create(new double[]{42, 0, 1, 1, 0, 1, 5, 0, 1, 6, 0, 1}, new int[]{4, 3});
 
-        return new PreProDataSet(
+        return new DefaultPreProDataSet(
                 Arrays.asList(p1, p2, p3),
                 Arrays.asList("p1", "p2", "p3")
         );
