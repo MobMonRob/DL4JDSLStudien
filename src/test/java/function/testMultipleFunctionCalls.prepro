@@ -1,0 +1,19 @@
+function main() {
+    import vec3 p1;
+
+    vec3 result = double(p1);
+    result = result - p1;
+    result = result - p1;
+
+    //result must be now [0, 0, 0, ...]
+
+    export result;
+}
+
+function double(vec3 vec) returns vec3 {
+    return add(vec, vec);
+}
+
+function add(vec3 a, vec3 b) returns vec3 {
+    return a + b;
+}

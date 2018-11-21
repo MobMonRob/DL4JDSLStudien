@@ -29,7 +29,7 @@ public class FunctionNode extends Node {
             this.returnType = null;
             this.returnExpression = null;
             if (returnExpression != null) {
-                throw new RuntimeException("Function " + name + " must have NO return statement or return a value.");
+                throw new RuntimeException("Function " + name + " must have NO return statement or specify the return type with \"<funtion>() returns <type>\"");
             }
         } else {
             this.returnType = VariableType.getTypeForText(returnType);

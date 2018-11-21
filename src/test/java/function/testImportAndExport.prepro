@@ -1,0 +1,5 @@
+function main() {
+	import vec3 p3, vec3 p1;
+
+	export p1, p3;
+}

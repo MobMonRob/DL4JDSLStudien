@@ -1,0 +1,17 @@
+function main() {
+    import vec3 p1, vec3 p2;
+
+    nop();
+    vec3 result = add(p1, p2);
+    nop();
+
+    export result;
+}
+
+function nop() {
+
+}
+
+function add(vec3 a, vec3 b) returns vec3 {
+    return a + b;
+}

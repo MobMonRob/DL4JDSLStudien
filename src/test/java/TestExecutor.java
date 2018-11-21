@@ -1,5 +1,6 @@
 import main.PreProDataSet;
 import main.PreProProgram;
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -12,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -41,7 +43,7 @@ public class TestExecutor {
         }));
 
         for (File file : getAllTestFilesAndCheckIfOutputExists()) {
-            SYSTEM_OUT.println("Testing " + file.getName());
+            SYSTEM_OUT.println("Testing " + file.getPath());
             testFile(file);
         }
     }
@@ -55,10 +57,10 @@ public class TestExecutor {
         assertEquals(expected, result);
     }
 
-    private File[] getAllTestFilesAndCheckIfOutputExists() {
-        File dir = new File("src/test/java/");
+    private List<File> getAllTestFilesAndCheckIfOutputExists() {
+        File dir = new File("src/test/");
 
-        File[] testFiles = dir.listFiles((directory, filename) -> filename.endsWith(".prepro"));
+        List<File> testFiles = (List<File>) FileUtils.listFiles(dir, new String[]{"prepro"}, true);
 
         for (File testFile : testFiles) {
             File outputFile = new File(testFile.getAbsolutePath().replace(".prepro", ".out"));

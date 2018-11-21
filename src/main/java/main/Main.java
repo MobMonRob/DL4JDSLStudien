@@ -17,7 +17,7 @@ public class Main {
                 Arrays.asList("p1", "p2", "p3")
         );
 
-        PreProProgram program = new PreProProgram("src/test/java/testCrossProduct.prepro");
+        PreProProgram program = new PreProProgram("src/test/java/arithmetic/testCrossProduct.prepro");
         PreProDataSet result = program.execute(preProDataSet);
 
         System.out.println("Calculated x:\n" + result.getVariable("x"));
