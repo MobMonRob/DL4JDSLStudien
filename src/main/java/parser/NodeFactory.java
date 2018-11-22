@@ -1,6 +1,5 @@
 package parser;
 
-import nodes.expression.ExpressionNode;
 import nodes.function.FunctionNode;
 import nodes.function.ParameterDefinition;
 import nodes.statement.StatementNode;
@@ -16,7 +15,6 @@ public class NodeFactory {
 
     private List<FunctionNode> functions;
     private List<StatementNode> statements;
-    private List<ExpressionNode> expressions;
     private List<Float> arrayValues = new ArrayList<>();
     private int actualArrayHeight;
     private int actualArrayWidth;
@@ -49,18 +47,6 @@ public class NodeFactory {
         StatementNode[] array = new StatementNode[statements.size()];
         statements.toArray(array);
         return array;
-    }
-
-    public void startExpressionList() {
-        expressions = new ArrayList<>();
-    }
-
-    public void addExpression(ExpressionNode expression) {
-        expressions.add(expression);
-    }
-
-    public List<ExpressionNode> getExpressionsAsList() {
-        return expressions;
     }
 
     public void startArray() {

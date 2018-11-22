@@ -727,7 +727,7 @@ public class PreProParser extends Parser {
 			((FunctionCallStatementContext)_localctx).IDENTIFIER = match(IDENTIFIER);
 			setState(143);
 			match(T__2);
-			 nodeFactory.startExpressionList(); 
+			 List<ExpressionNode> expressionList = new ArrayList<>(); 
 			setState(156);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -735,7 +735,7 @@ public class PreProParser extends Parser {
 				{
 				setState(145);
 				((FunctionCallStatementContext)_localctx).expression = expression();
-				 nodeFactory.addExpression(((FunctionCallStatementContext)_localctx).expression.result); 
+				 expressionList.add(((FunctionCallStatementContext)_localctx).expression.result); 
 				setState(153);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -746,7 +746,7 @@ public class PreProParser extends Parser {
 					match(T__9);
 					setState(148);
 					((FunctionCallStatementContext)_localctx).expression = expression();
-					 nodeFactory.addExpression(((FunctionCallStatementContext)_localctx).expression.result); 
+					 expressionList.add(((FunctionCallStatementContext)_localctx).expression.result); 
 					}
 					}
 					setState(155);
@@ -758,7 +758,7 @@ public class PreProParser extends Parser {
 
 			setState(158);
 			match(T__3);
-			 ((FunctionCallStatementContext)_localctx).result =  new FunctionCallNode((((FunctionCallStatementContext)_localctx).IDENTIFIER!=null?((FunctionCallStatementContext)_localctx).IDENTIFIER.getText():null), nodeFactory.getExpressionsAsList()); 
+			 ((FunctionCallStatementContext)_localctx).result =  new FunctionCallNode((((FunctionCallStatementContext)_localctx).IDENTIFIER!=null?((FunctionCallStatementContext)_localctx).IDENTIFIER.getText():null), expressionList); 
 			}
 		}
 		catch (RecognitionException re) {

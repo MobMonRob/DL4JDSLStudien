@@ -126,14 +126,14 @@ e=expression                        { $result = new AssignStatementNode($i.text,
 
 functionCallStatement returns [FunctionCallNode result]:
 IDENTIFIER
-'('                                 { nodeFactory.startExpressionList(); }
+'('                                 { List<ExpressionNode> expressionList = new ArrayList<>(); }
 (
-    expression                      { nodeFactory.addExpression($expression.result); }
+    expression                      { expressionList.add($expression.result); }
     (
-        ',' expression              { nodeFactory.addExpression($expression.result); }
+        ',' expression              { expressionList.add($expression.result); }
     )*
 )?
-')'                                 { $result = new FunctionCallNode($IDENTIFIER.text, nodeFactory.getExpressionsAsList()); }
+')'                                 { $result = new FunctionCallNode($IDENTIFIER.text, expressionList); }
 ;
 
 printStatement returns [PrintStatementNode result]:
