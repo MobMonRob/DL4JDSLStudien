@@ -6,6 +6,8 @@ import nodes.statement.StatementNode;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import variables.Matrix;
+import variables.Matrix4;
+import variables.VariableType;
 import variables.Vector3;
 
 import java.util.ArrayList;
@@ -83,12 +85,7 @@ public class NodeFactory {
     }
 
     public ParameterDefinition createParameterDefiniton(String type, String variableName) {
-        switch (type) {
-            case "vec3":
-                return new ParameterDefinition(variableName, Vector3.class);
-            case "mat":
-                return new ParameterDefinition(variableName, Matrix.class);
-        }
-        throw new RuntimeException();
+        return new ParameterDefinition(variableName,
+                VariableType.getTypeForText(type).getVariableClass());
     }
 }

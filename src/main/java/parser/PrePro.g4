@@ -186,7 +186,7 @@ fragment DIGIT : [0-9];
 // fragment TAB : '\t';
 fragment STRING_CHAR : ~('"' | '\\' | '\r' | '\n');
 
-TYPE : 'vec3' | 'mat';
+TYPE : 'vec3' | 'vec4' | 'mat' | 'mat4';
 
 IDENTIFIER : LETTER (LETTER | DIGIT)*;
 STRING_LITERAL : '"' STRING_CHAR* '"';

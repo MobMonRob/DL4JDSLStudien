@@ -4,9 +4,8 @@ import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 import nodes.function.FunctionCallNode;
-import variables.Matrix;
 import variables.Variable;
-import variables.Vector3;
+import variables.VariableType;
 
 public class AssignStatementNode extends StatementNode {
     private final String variableName;
@@ -25,16 +24,7 @@ public class AssignStatementNode extends StatementNode {
         if (variableType == null) { // Null is allowed, if no type is given and the variable already exists
             this.variableType = null;
         } else {
-            switch (variableType) {
-                case "mat":
-                    this.variableType = Matrix.class;
-                    break;
-                case "vec3":
-                    this.variableType = Vector3.class;
-                    break;
-                default:
-                    throw new RuntimeException();
-            }
+            this.variableType = VariableType.getTypeForText(variableType).getVariableClass();
         }
     }
 
@@ -42,7 +32,7 @@ public class AssignStatementNode extends StatementNode {
     public void execute(SymbolTable symbolTable, FunctionTable functionTable) {
         Variable value = expressionNode.execute(symbolTable, functionTable);
 
-        if(value == null && expressionNode instanceof FunctionCallNode) {
+        if (value == null && expressionNode instanceof FunctionCallNode) {
             throw new RuntimeException("The call to function " + ((FunctionCallNode) expressionNode).getFunctionName()
                     + " has no return value and so cannot be assigned to " + variableName);
 

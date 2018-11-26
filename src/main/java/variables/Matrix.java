@@ -6,6 +6,9 @@ public class Matrix extends Variable {
 
     public Matrix(INDArray ndArray) {
         super(ndArray);
+        if (ndArray.shape().length != 3) {
+            throw new RuntimeException("Matrix must be two-dimensional.");
+        }
     }
 
     @Override

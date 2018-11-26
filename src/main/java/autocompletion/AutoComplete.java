@@ -1,6 +1,5 @@
 package autocompletion;
 
-import nodes.FunctionTable;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import parser.PreProLexer;

@@ -5,6 +5,7 @@ import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
+import variables.Matrix4;
 import variables.Variable;
 import variables.Vector3;
 
@@ -25,12 +26,18 @@ public class CrossProductNode extends ExpressionNode {
 
         if (leftValue instanceof Vector3 && rightValue instanceof Vector3) {
             return crossProduct((Vector3) leftValue, (Vector3) rightValue);
+        } else if (leftValue instanceof Matrix4 && rightValue instanceof Matrix4) {
+            return matrixProduct((Matrix4) leftValue, (Matrix4) rightValue);
         } else {
             throw new RuntimeException("Can't do cross product because of wrong types");
         }
     }
 
     private Vector3 crossProduct(Vector3 left, Vector3 right) {
+        if (left.getAmountTimeElements() != right.getAmountTimeElements()) {
+            throw new RuntimeException("Matrix must have the same amount of time elements.");
+        }
+
         INDArray a = left.getNdArray();
         INDArray b = right.getNdArray();
 
@@ -55,19 +62,16 @@ public class CrossProductNode extends ExpressionNode {
         return new Vector3(result);
     }
 
-    private Vector3 crossProductSlow(Vector3 left, Vector3 right) {
-        INDArray a = left.getNdArray();
-        INDArray b = right.getNdArray();
-
-        int size = a.shape()[0];
-        double[] result = new double[size * 3];
-
-        for (int i = 0; i < size; i++) {
-            result[i * 3 + 0] = a.getDouble(i, 1) * b.getDouble(i, 2) - a.getDouble(i, 2) * b.getDouble(i, 1);
-            result[i * 3 + 1] = a.getDouble(i, 2) * b.getDouble(i, 0) - a.getDouble(i, 0) * b.getDouble(i, 2);
-            result[i * 3 + 2] = a.getDouble(i, 0) * b.getDouble(i, 1) - a.getDouble(i, 1) * b.getDouble(i, 0);
+    private Matrix4 matrixProduct(Matrix4 left, Matrix4 right) {
+        //TODO Replace with faster implementation
+        if (left.getAmountTimeElements() != right.getAmountTimeElements()) {
+            throw new RuntimeException("Matrix must have the same amount of time elements.");
         }
-        return new Vector3(Nd4j.create(result, new int[]{size, 3}));
+        INDArray result = Nd4j.create(left.getAmountTimeElements(), 4, 4);
+        for (int i = 0; i < left.getAmountTimeElements(); i++) {
+            result.putRow(i, left.getNdArray().getRow(i).mmul(right.getNdArray().getRow(i)));
+        }
+        return new Matrix4(result);
     }
 }
 

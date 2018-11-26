@@ -7,8 +7,7 @@ import nodes.SymbolTable;
 import nodes.statement.StatementListNode;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
-import variables.Variable;
-import variables.Vector3;
+import variables.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +50,15 @@ public class MainFunctionNode extends FunctionNode {
     private Variable getVariableForType(Class type, INDArray array) {
         if (type == Vector3.class) {
             return new Vector3(array);
+        }
+        if (type == Vector4.class) {
+            return new Vector4(array);
+        }
+        if (type == Matrix.class) {
+            return new Matrix(array);
+        }
+        if (type == Matrix4.class) {
+            return new Matrix4(array);
         }
         throw new RuntimeException();
     }

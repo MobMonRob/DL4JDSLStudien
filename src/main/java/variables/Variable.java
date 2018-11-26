@@ -12,4 +12,8 @@ public abstract class Variable {
     public INDArray getNdArray() {
         return ndArray;
     }
+
+    public int getAmountTimeElements() {
+        return ndArray.shape()[0];
+    }
 }
