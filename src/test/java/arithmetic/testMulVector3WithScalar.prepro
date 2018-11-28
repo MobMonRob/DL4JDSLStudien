@@ -1,0 +1,7 @@
+function main() {
+	import vec3 p1, scal numbers;
+
+	vec3 result = p1 * numbers;
+
+	export result;
+}

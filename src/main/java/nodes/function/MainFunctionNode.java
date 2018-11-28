@@ -50,15 +50,18 @@ public class MainFunctionNode extends FunctionNode {
     private Variable getVariableForType(Class type, INDArray array) {
         if (type == Vector3.class) {
             return new Vector3(array);
-        }
-        if (type == Vector4.class) {
+        } else if (type == Vector4.class) {
             return new Vector4(array);
-        }
-        if (type == Matrix.class) {
-            return new Matrix(array);
-        }
-        if (type == Matrix4.class) {
+        } else if (type == Vector.class) {
+            return new Vector(array);
+        } else if (type == Matrix3.class) {
+            return new Matrix3(array);
+        } else if (type == Matrix4.class) {
             return new Matrix4(array);
+        } else if (type == Matrix.class) {
+            return new Matrix(array);
+        } else if (type == Scalar.class) {
+            return new Scalar(array);
         }
         throw new RuntimeException();
     }

@@ -1,0 +1,7 @@
+function main() {
+	import mat4 testMat4_1, mat4 testMat4_2;
+
+	mat4 result = testMat4_1 * testMat4_2;
+
+	export result;
+}

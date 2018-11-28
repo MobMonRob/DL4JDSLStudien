@@ -1,0 +1,7 @@
+function main() {
+	import mat3 testMat3_1, vec3 p1;
+
+	vec3 result = testMat3_1 * p1;
+
+	export result;
+}

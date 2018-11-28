@@ -1,0 +1,9 @@
+DefaultPreProDataSet{
+dataSetEntries=
+[DataSetEntry{variableName='div', variableShape=[4, 1], startColumn=0, length=1}],
+dataSet=
+[1.00,  0.50,  0.33,  0.25]
+
+calculated_variables=
+div=[1.00,  0.50,  0.33,  0.25]
+}

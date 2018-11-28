@@ -4,10 +4,7 @@ import nodes.FunctionTable;
 import nodes.SymbolTable;
 import nodes.expression.ExpressionNode;
 import org.nd4j.linalg.api.ndarray.INDArray;
-import variables.Matrix4;
-import variables.Variable;
-import variables.Vector3;
-import variables.Vector4;
+import variables.*;
 
 public class SubNode extends ExpressionNode {
 
@@ -30,8 +27,16 @@ public class SubNode extends ExpressionNode {
             return new Vector3(subtractedValue);
         } else if (leftValue instanceof Vector4 && rightValue instanceof Vector4) {
             return new Vector4(subtractedValue);
+        } else if (leftValue instanceof Vector && rightValue instanceof Vector) {
+            return new Vector(subtractedValue);
+        } else if (leftValue instanceof Matrix3 && rightValue instanceof Matrix3) {
+            return new Matrix3(subtractedValue);
         } else if (leftValue instanceof Matrix4 && rightValue instanceof Matrix4) {
             return new Matrix4(subtractedValue);
+        } else if (leftValue instanceof Matrix && rightValue instanceof Matrix) {
+            return new Matrix(subtractedValue);
+        } else if (leftValue instanceof Scalar && rightValue instanceof Scalar) {
+            return new Scalar(subtractedValue);
         } else {
             throw new RuntimeException("Cant subtract because of wrong types");
         }

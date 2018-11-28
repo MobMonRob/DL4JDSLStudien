@@ -1,0 +1,7 @@
+function main() {
+	import mat3 testMat3_1, scal numbers;
+
+	mat3 result = testMat3_1 * numbers;
+
+	export result;
+}

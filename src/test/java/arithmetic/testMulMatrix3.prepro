@@ -1,0 +1,7 @@
+function main() {
+	import mat3 testMat3_1, mat3 testMat3_2;
+
+	mat3 result = testMat3_1 * testMat3_2;
+
+	export result;
+}

@@ -9,6 +9,11 @@ import variables.Matrix4;
 import variables.Variable;
 import variables.Vector3;
 
+/**
+ * Represents a cross-product.
+ * Can only be applied to two Vector3.
+ * Represented by a "X" (large x)
+ */
 public class CrossProductNode extends ExpressionNode {
 
     private ExpressionNode left;
@@ -26,16 +31,15 @@ public class CrossProductNode extends ExpressionNode {
 
         if (leftValue instanceof Vector3 && rightValue instanceof Vector3) {
             return crossProduct((Vector3) leftValue, (Vector3) rightValue);
-        } else if (leftValue instanceof Matrix4 && rightValue instanceof Matrix4) {
-            return matrixProduct((Matrix4) leftValue, (Matrix4) rightValue);
         } else {
-            throw new RuntimeException("Can't do cross product because of wrong types");
+            throw new RuntimeException("Can't do cross product because of wrong types, " +
+                    "the types for a cross product must be two Vector3");
         }
     }
 
     private Vector3 crossProduct(Vector3 left, Vector3 right) {
         if (left.getAmountTimeElements() != right.getAmountTimeElements()) {
-            throw new RuntimeException("Matrix must have the same amount of time elements.");
+            throw new RuntimeException("Vectors must have the same amount of time elements.");
         }
 
         INDArray a = left.getNdArray();
@@ -60,18 +64,6 @@ public class CrossProductNode extends ExpressionNode {
         result.putColumn(2, c3);
 
         return new Vector3(result);
-    }
-
-    private Matrix4 matrixProduct(Matrix4 left, Matrix4 right) {
-        //TODO Replace with faster implementation
-        if (left.getAmountTimeElements() != right.getAmountTimeElements()) {
-            throw new RuntimeException("Matrix must have the same amount of time elements.");
-        }
-        INDArray result = Nd4j.create(left.getAmountTimeElements(), 4, 4);
-        for (int i = 0; i < left.getAmountTimeElements(); i++) {
-            result.putRow(i, left.getNdArray().getRow(i).mmul(right.getNdArray().getRow(i)));
-        }
-        return new Matrix4(result);
     }
 }
 

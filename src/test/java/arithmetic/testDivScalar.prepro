@@ -1,0 +1,8 @@
+function main() {
+    import scal numbers;
+
+    scal div = numbers / numbers / numbers;
+
+    export div;
+}
+

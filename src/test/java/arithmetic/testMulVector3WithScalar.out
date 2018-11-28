@@ -1,0 +1,15 @@
+DefaultPreProDataSet{
+dataSetEntries=
+[DataSetEntry{variableName='result', variableShape=[4, 3], startColumn=0, length=3}],
+dataSet=
+[[42.00,  0.00,  0.00],  
+ [2.00,  0.00,  0.00],  
+ [15.00,  0.00,  0.00],  
+ [24.00,  0.00,  0.00]]
+
+calculated_variables=
+result=[[42.00,  0.00,  0.00],  
+ [2.00,  0.00,  0.00],  
+ [15.00,  0.00,  0.00],  
+ [24.00,  0.00,  0.00]]
+}

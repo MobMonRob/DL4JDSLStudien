@@ -1,0 +1,7 @@
+function main() {
+    import mat4 testMat4_1, mat4 testMat4_2;
+
+    mat4 sum = testMat4_1 + testMat4_2;
+
+    export sum;
+}
