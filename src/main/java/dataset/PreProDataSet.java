@@ -9,4 +9,6 @@ public interface PreProDataSet {
     INDArray getVariable(String variableName);
 
     List<String> getVariableNames();
+
+    void writeDataSetToFile(String filePathData);
 }

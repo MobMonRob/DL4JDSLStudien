@@ -1,5 +1,8 @@
 package dataset;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Arrays;
 
 public class DataSetEntry {
@@ -9,7 +12,11 @@ public class DataSetEntry {
     private final int startColumn;
     private final int length;
 
-    public DataSetEntry(String variableName, int[] variableShape, int startColumn, int length) {
+    @JsonCreator
+    public DataSetEntry(@JsonProperty("variableName") String variableName,
+                        @JsonProperty("variableShape") int[] variableShape,
+                        @JsonProperty("startColumn") int startColumn,
+                        @JsonProperty("length") int length) {
         this.variableName = variableName;
         this.variableShape = variableShape;
         this.startColumn = startColumn;
