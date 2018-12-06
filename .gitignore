@@ -1,5 +1,8 @@
-.idea/*
-*.iml
-*.log
+PrePro/.idea/*
+PrePro/*.iml
+PrePro/*.log
 
-target/*
+PrePro/target/*
+
+PrePro/temp.dataset
+PrePro/temp.dataset.meta
