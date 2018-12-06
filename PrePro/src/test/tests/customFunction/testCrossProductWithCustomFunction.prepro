@@ -1,0 +1,17 @@
+function main() {
+	import vec3 p1, vec3 p2, vec3 p3;
+
+	vec3 x = calculateDifferenceCustomFunction(p1, p2);
+	vec3 s = calculateDifferenceCustomFunction(p1, p3);
+	vec3 y = s X x;
+	vec3 z = y X x;
+
+	export x, y, z;
+}
+
+/*
+This function is implemented via a custom function in plain java
+function calculateDifference(vec3 p1, vec3 p2) returns vec3 {
+	return p2 - p1;
+}
+*/

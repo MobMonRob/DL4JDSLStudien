@@ -2,6 +2,8 @@ package de.sbernauer.prepro;
 
 import de.sbernauer.prepro.dataset.PreProDataSet;
 import de.sbernauer.prepro.nodes.MainNode;
+import de.sbernauer.prepro.nodes.function.Function;
+import de.sbernauer.prepro.nodes.function.FunctionNode;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import de.sbernauer.prepro.parser.PreProLexer;
@@ -31,5 +33,9 @@ public class PreProProgram {
 
         System.out.println("\nOutput-PreProDataSet contains:\n" + result.getVariableNames());
         return result;
+    }
+
+    public void registerFunction(Class clazz, String functionName) {
+        mainNode.registerFunction(clazz, functionName);
     }
 }

@@ -11,9 +11,9 @@ import de.sbernauer.prepro.variables.VariableType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionNode extends Node {
+public class FunctionNode extends Node implements Function {
     protected final List<ParameterDefinition> parameterDefinitions;
-    private final String name;
+    private final String functionName;
     private final VariableType returnType; /* null, if returnType = void */
     private final ExpressionNode returnExpression;
 
@@ -23,18 +23,18 @@ public class FunctionNode extends Node {
     /**
      * @param returnType null, if function is void
      */
-    public FunctionNode(String name, String returnType, List<ParameterDefinition> parameterDefinitions, StatementListNode statementListNode, ExpressionNode returnExpression) {
-        this.name = name;
+    public FunctionNode(String functionName, String returnType, List<ParameterDefinition> parameterDefinitions, StatementListNode statementListNode, ExpressionNode returnExpression) {
+        this.functionName = functionName;
         if (returnType == null) {
             this.returnType = null;
             this.returnExpression = null;
             if (returnExpression != null) {
-                throw new RuntimeException("Function " + name + " must have NO return statement or specify the return type with \"<funtion>() returns <type>\"");
+                throw new RuntimeException("Function " + functionName + " must have NO return statement or specify the return type with \"<funtion>() returns <type>\"");
             }
         } else {
             this.returnType = VariableType.getTypeForText(returnType);
             if (returnExpression == null) {
-                throw new RuntimeException("Function " + name + " must have an return statement.");
+                throw new RuntimeException("Function " + functionName + " must have an return statement.");
             }
             this.returnExpression = returnExpression;
         }
@@ -46,16 +46,18 @@ public class FunctionNode extends Node {
         this.statementListNode = statementListNode;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String getFunctionName() {
+        return functionName;
     }
 
     /**
      * @return null, if the function is void
      */
+    @Override
     public Variable execute(Arguments arguments, FunctionTable functionTable) {
         if (parameterDefinitions.size() != arguments.getValues().length) {
-            throw new RuntimeException("Number of Argument for the function \"" + name + "\" differs.");
+            throw new RuntimeException("Number of Argument for the function \"" + functionName + "\" differs.");
         }
         SymbolTable symbolTable = new SymbolTable();
         for (int i = 0; i < parameterDefinitions.size(); i++) {

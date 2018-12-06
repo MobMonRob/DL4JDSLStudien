@@ -15,8 +15,7 @@ class Main {
         INDArray p2 = Nd4j.create(new double[]{43, 0, 0, 44662, 0, 0, 6, 0, 0, 7, 0, 0}, new int[]{4, 3});
         INDArray p3 = Nd4j.create(new double[]{42, 0, 1, 1, 0, 1, 5, 0, 1, 6, 0, 1}, new int[]{4, 3});
 
-        INDArray testMat3_1
-                = Nd4j.create(IntStream.range(1, 36 + 1).mapToDouble(i -> i).toArray(), new int[]{4, 3, 3});
+        INDArray testMat3_1 = Nd4j.create(IntStream.range(1, 36 + 1).mapToDouble(i -> i).toArray(), new int[]{4, 3, 3});
         INDArray testMat3_2 = Nd4j.create(IntStream.range(1, 36 * 2 + 1).filter(i -> i % 2 == 0).mapToDouble(i -> i).toArray(), new int[]{4, 3, 3});
 
         INDArray testMat4_1 = Nd4j.create(IntStream.range(1, 64 + 1).mapToDouble(i -> i).toArray(), new int[]{4, 4, 4});

@@ -2,6 +2,7 @@ package de.sbernauer.prepro.nodes;
 
 import com.oracle.truffle.api.nodes.Node;
 import de.sbernauer.prepro.dataset.PreProDataSet;
+import de.sbernauer.prepro.nodes.function.CustomFunctionNode;
 import de.sbernauer.prepro.nodes.function.FunctionNode;
 import de.sbernauer.prepro.nodes.function.MainFunctionNode;
 
@@ -20,5 +21,9 @@ public class MainNode extends Node {
         MainFunctionNode mainFunctionNode = (MainFunctionNode) functionTable.getFunction("main");
 
         return mainFunctionNode.executeMainFunction(preProDataSet, functionTable);
+    }
+
+    public void registerFunction(Class clazz, String functionName) {
+        functionTable.addFunction(new CustomFunctionNode(clazz, functionName));
     }
 }
