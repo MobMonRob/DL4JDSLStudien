@@ -4,6 +4,8 @@ dataSetEntries=
 dataSet=
 [1.00,  0.50,  0.33,  0.25]
 
+constants={}
+
 calculated_variables=
 div=[1.00,  0.50,  0.33,  0.25]
 }

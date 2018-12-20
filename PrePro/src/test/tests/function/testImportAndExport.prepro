@@ -1,5 +1,5 @@
 function main() {
-	import vec3 p3, vec3 p1;
+	import vec3 p3, vec3 p1, mat4 testMat4_1, const quaternion_1;
 
-	export p1, p3;
+	export p1, p3, testMat4_1, quaternion_1;
 }

@@ -2,13 +2,17 @@ package de.sbernauer.prepro.dataset;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 
-import java.util.List;
+import java.util.Set;
 
 public interface PreProDataSet {
 
     INDArray getVariable(String variableName);
 
-    List<String> getVariableNames();
+    Set<String> getVariableNames();
+
+    boolean variableExists(String variableName);
+
+    void addConstant(String constantName, INDArray value);
 
     void writeDataSetToFile(String filePathData);
 }

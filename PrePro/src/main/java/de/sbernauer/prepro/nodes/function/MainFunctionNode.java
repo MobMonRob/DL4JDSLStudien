@@ -1,6 +1,6 @@
 package de.sbernauer.prepro.nodes.function;
 
-import de.sbernauer.prepro.dataset.DefaultPreProDataSet;
+import de.sbernauer.prepro.dataset.FilePreProDataSet;
 import de.sbernauer.prepro.dataset.PreProDataSet;
 import de.sbernauer.prepro.nodes.FunctionTable;
 import de.sbernauer.prepro.nodes.SymbolTable;
@@ -36,15 +36,32 @@ public class MainFunctionNode extends FunctionNode {
         statementListNode.execute(symbolTable, functionTable);
 
         if (exportDefinitions.size() == 0) { // No exports needed, return empty PreProDataSet
-            return new DefaultPreProDataSet(new DataSet(), new ArrayList<>());
+            return new FilePreProDataSet(new DataSet(), new ArrayList<>());
         }
 
-        List<INDArray> variables = exportDefinitions.stream()
-                .map(symbolTable::getValueOrThrowExceptionIfNotDefined)
-                .map(Variable::getNdArray)
-                .collect(Collectors.toList());
+        List<INDArray> timeSeries = new ArrayList<>();
+        List<String> timeSeriesNames = new ArrayList<>();
+        List<INDArray> constants = new ArrayList<>();
+        List<String> constantNames = new ArrayList<>();
 
-        return new DefaultPreProDataSet(variables, exportDefinitions);
+        for (String variableName : exportDefinitions) {
+            Variable variable = symbolTable.getValueOrThrowExceptionIfNotDefined(variableName);
+
+            if (variable instanceof Constant) {
+                constants.add(variable.getNdArray());
+                constantNames.add(variableName);
+            } else {
+                timeSeries.add(variable.getNdArray());
+                timeSeriesNames.add(variableName);
+            }
+        }
+
+        PreProDataSet dataSet = new FilePreProDataSet(timeSeries, timeSeriesNames);
+        for(int i = 0; i < constants.size(); i++) {
+            dataSet.addConstant(constantNames.get(i), constants.get(i));
+        }
+
+        return dataSet;
     }
 
     private Variable getVariableForType(Class type, INDArray array) {
@@ -62,6 +79,8 @@ public class MainFunctionNode extends FunctionNode {
             return new Matrix(array);
         } else if (type == Scalar.class) {
             return new Scalar(array);
+        } else if (type == Constant.class) {
+            return new Constant(array);
         }
         throw new RuntimeException();
     }

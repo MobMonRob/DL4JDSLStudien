@@ -1,6 +1,6 @@
 package de.sbernauer.prepro;
 
-import de.sbernauer.prepro.dataset.DefaultPreProDataSet;
+import de.sbernauer.prepro.dataset.FilePreProDataSet;
 import de.sbernauer.prepro.dataset.PreProDataSet;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -23,10 +23,13 @@ class Main {
 
         INDArray numbers = Nd4j.create(new double[]{1, 2, 3, 4}, new int[]{4, 1});
 
-        PreProDataSet preProDataSet = new DefaultPreProDataSet(
+        PreProDataSet preProDataSet = new FilePreProDataSet(
                 Arrays.asList(p1, p2, p3, testMat3_1, testMat3_2, testMat4_1, testMat4_2, numbers),
                 Arrays.asList("p1", "p2", "p3", "testMat3_1", "testMat3_2", "testMat4_1", "testMat4_2", "numbers")
         );
+
+        preProDataSet.addConstant("fortytwo", Nd4j.create(new double[]{1}, new int[]{1,1}));
+        preProDataSet.addConstant("quaternion_1", Nd4j.create(new double[]{1,2,3,4}, new int[]{1,4}));
 
         PreProProgram program = new PreProProgram("src/test/tests/arithmetic/testCrossProduct.prepro");
         PreProDataSet result = program.execute(preProDataSet);

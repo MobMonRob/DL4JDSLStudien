@@ -1,6 +1,6 @@
 package de.sbernauer.prepro;
 
-import de.sbernauer.prepro.dataset.DefaultPreProDataSet;
+import de.sbernauer.prepro.dataset.FilePreProDataSet;
 import de.sbernauer.prepro.dataset.PreProDataSet;
 import de.sbernauer.prepro.variables.Vector3;
 import org.apache.commons.io.FileUtils;
@@ -21,7 +21,7 @@ public class TestExecutor {
     private static final PrintStream SYSTEM_OUT = System.out;
 
     private PreProDataSet TEST_PRE_PRO_DATA_SET
-            = new DefaultPreProDataSet("src/test/tests/test.dataset");
+            = new FilePreProDataSet("src/test/tests/test.dataset");
 
     @Test
     public void runTests() throws IOException {

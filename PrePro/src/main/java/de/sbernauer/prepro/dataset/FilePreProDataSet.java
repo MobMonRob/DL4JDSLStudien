@@ -1,7 +1,5 @@
 package de.sbernauer.prepro.dataset;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
@@ -14,24 +12,26 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-public class DefaultPreProDataSet implements PreProDataSet {
+public class FilePreProDataSet implements PreProDataSet {
 
-    private static final String CSV_SPERATOR = ";";
-    private static final int CSV_PRECISION = 9;
+    public static final String CSV_SEPERATOR = ";";
+    public static final int CSV_PRECISION = 9;
 
     private final DataSet dataSet;
     private final List<DataSetEntry> dataSetEntries;
 
+    private HashMap<String, INDArray> constants = new HashMap<>();
+
     /**
      * @param dataSetEntries A List of DataSetEntries.
      *                       The DataSetEntries must cover the complete feature-matrix.
-     *                       //     * @param workOnCopy     If true it will clone the DataSet and work on a copy.
-     *                       //     *                       This is useful, if the DataSet is used later on.
      */
-    public DefaultPreProDataSet(DataSet dataSet, List<DataSetEntry> dataSetEntries) {
+    public FilePreProDataSet(DataSet dataSet, List<DataSetEntry> dataSetEntries) {
         if (dataSetEntries.isEmpty()) {
             this.dataSet = dataSet;
             this.dataSetEntries = new ArrayList<>();
@@ -55,7 +55,7 @@ public class DefaultPreProDataSet implements PreProDataSet {
         this.dataSet = dataSet;
     }
 
-    public DefaultPreProDataSet(List<INDArray> variables, List<String> variableNames) {
+    public FilePreProDataSet(List<INDArray> variables, List<String> variableNames) {
         if (variables.size() == 0 || (variables.size() != variableNames.size())) {
             throw new RuntimeException("The lists of variables and variableNames must have the same size.");
         }
@@ -98,37 +98,24 @@ public class DefaultPreProDataSet implements PreProDataSet {
         }
     }
 
-    public DefaultPreProDataSet(String filePathDefaultProProDataSetFile) {
+    public FilePreProDataSet(String filePathDefaultProProDataSetFile) {
         try {
             if (!fileExists(filePathDefaultProProDataSetFile)
                     || !fileExists(filePathDefaultProProDataSetFile + ".meta")) {
                 throw new RuntimeException("The files " + filePathDefaultProProDataSetFile + " and "
                         + filePathDefaultProProDataSetFile + ".meta must exist.");
             }
-            INDArray features = Nd4j.readTxt(filePathDefaultProProDataSetFile, CSV_SPERATOR);
+            INDArray features = Nd4j.readTxt(filePathDefaultProProDataSetFile, CSV_SEPERATOR);
             this.dataSet = new DataSet(features, null);
-            String dataSetEntriesJsonString = new String(Files.readAllBytes(Paths.get(filePathDefaultProProDataSetFile + ".meta")));
-            this.dataSetEntries = new ObjectMapper().readValue(dataSetEntriesJsonString,
-                    new TypeReference<List<DataSetEntry>>() {
-                    });
+
+            String metaDataJsonString = new String(Files.readAllBytes(
+                    Paths.get(filePathDefaultProProDataSetFile + ".meta")));
+            MetaDataJsonObject metaData = new MetaDataJsonObject(metaDataJsonString);
+            this.dataSetEntries = metaData.dataSetEntries;
+            this.constants = metaData.constants;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public INDArray getVariable(String variableName) {
-        for (DataSetEntry dataSetEntry : dataSetEntries) {
-            if (variableName.equals(dataSetEntry.getVariableName())) {
-                int startColumn = dataSetEntry.getStartColumn();
-                int endColumn = startColumn + dataSetEntry.getLength();
-
-                return dataSet.getFeatures()
-                        .get(NDArrayIndex.all(), NDArrayIndex.interval(startColumn, endColumn))
-                        .reshape(dataSetEntry.getVariableShape());
-            }
-        }
-        throw new RuntimeException("Variable " + variableName + " not found in the DataSet.");
     }
 
     private boolean fileExists(String filePath) {
@@ -136,11 +123,55 @@ public class DefaultPreProDataSet implements PreProDataSet {
         return (f.exists() && !f.isDirectory());
     }
 
-    @Override
-    public List<String> getVariableNames() {
+    private boolean constantExists(String constantName) {
+        return constants.containsKey(constantName);
+    }
+
+    private boolean timeSeriesExists(String variableName) {
         return dataSetEntries.stream()
                 .map(DataSetEntry::getVariableName)
-                .collect(Collectors.toList());
+                .anyMatch(variableName::equals);
+    }
+
+    @Override
+    public INDArray getVariable(String variableName) {
+        if (timeSeriesExists(variableName)) {
+            for (DataSetEntry dataSetEntry : dataSetEntries) {
+                if (variableName.equals(dataSetEntry.getVariableName())) {
+                    int startColumn = dataSetEntry.getStartColumn();
+                    int endColumn = startColumn + dataSetEntry.getLength();
+
+                    return dataSet.getFeatures()
+                            .get(NDArrayIndex.all(), NDArrayIndex.interval(startColumn, endColumn))
+                            .reshape(dataSetEntry.getVariableShape());
+                }
+            }
+        } else if (constantExists(variableName)) {
+            return constants.get(variableName);
+        }
+        throw new RuntimeException("Variable " + variableName + " not found in the DataSet.");
+    }
+
+    @Override
+    public Set<String> getVariableNames() {
+        Set<String> result = dataSetEntries.stream()
+                .map(DataSetEntry::getVariableName)
+                .collect(Collectors.toSet());
+        result.addAll(constants.keySet());
+        return result;
+    }
+
+    @Override
+    public boolean variableExists(String variableName) {
+        return constantExists(variableName) || timeSeriesExists(variableName);
+    }
+
+    @Override
+    public void addConstant(String constantName, INDArray value) {
+        if (variableExists(constantName)) {
+            throw new RuntimeException("The variable " + constantName + " already exists.");
+        }
+        constants.put(constantName, value);
     }
 
     @Override
@@ -150,12 +181,12 @@ public class DefaultPreProDataSet implements PreProDataSet {
 
     public void writeDataSetToFile(String filePathData, String filePathMetaData) {
         try {
-            Nd4j.writeTxt(dataSet.getFeatures(), filePathData, CSV_SPERATOR, CSV_PRECISION);
+            Nd4j.writeTxt(dataSet.getFeatures(), filePathData, CSV_SEPERATOR, CSV_PRECISION);
 
-            ObjectMapper mapper = new ObjectMapper();
-            String dataSetEntriesJsonString = mapper.writeValueAsString(this.dataSetEntries);
+            MetaDataJsonObject metaData = new MetaDataJsonObject(dataSetEntries, constants);
+
             PrintWriter printWriter = new PrintWriter(new FileOutputStream(filePathMetaData));
-            printWriter.println(dataSetEntriesJsonString);
+            printWriter.println(metaData.getJsonString());
             printWriter.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -171,6 +202,7 @@ public class DefaultPreProDataSet implements PreProDataSet {
         return "DefaultPreProDataSet{\n" +
                 "dataSetEntries=\n" + dataSetEntries + ",\n" +
                 "dataSet=\n" + dataSet.getFeatures().toString() + "\n\n" +
+                "constants=" + constants.toString() + "\n\n" +
                 "calculated_variables=\n" + stringBuilderVariables.toString() +
                 '}';
     }

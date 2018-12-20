@@ -1,5 +1,5 @@
 function main() {
-	import vec3 p1, vec3 p2, vec3 p3;
+	import vec3 p1, vec3 p2, vec3 p3, const fortytwo, const quaternion_1;
 
 	vec3 x = calculateDifference(p1, p2);
 	vec3 s = calculateDifference(p1, p3);

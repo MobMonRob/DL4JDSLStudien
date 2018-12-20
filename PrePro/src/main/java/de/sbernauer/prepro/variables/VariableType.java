@@ -8,7 +8,8 @@ public enum VariableType {
     MAT("mat", Matrix.class),
     MAT3("mat3", Matrix3.class),
     MAT4("mat4", Matrix4.class),
-    SCAL("scal", Scalar.class);
+    SCAL("scal", Scalar.class),
+    CONSTANT("const", Constant.class);
 
     private final String text;
     private final Class clazz;
