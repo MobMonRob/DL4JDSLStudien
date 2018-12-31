@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+AutoUpdate-Show-In-Client: true
+OpenIDE-Module: de.sbernauer.prepro.plugin.syntaxhighlighting
+OpenIDE-Module-Localizing-Bundle: de/sbernauer/prepro/plugin/syntaxhighlighting/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+OpenIDE-Module-Layer: de/sbernauer/prepro/plugin/syntaxhighlighting/layer.xml
