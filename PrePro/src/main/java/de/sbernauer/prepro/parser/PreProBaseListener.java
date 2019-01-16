@@ -56,6 +56,18 @@ public class PreProBaseListener implements PreProListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterImportDefinitions(PreProParser.ImportDefinitionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportDefinitions(PreProParser.ImportDefinitionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExportDefinitions(PreProParser.ExportDefinitionsContext ctx) { }
 	/**
 	 * {@inheritDoc}

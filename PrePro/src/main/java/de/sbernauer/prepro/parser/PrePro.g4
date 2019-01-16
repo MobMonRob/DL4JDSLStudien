@@ -49,7 +49,7 @@ mainFunction returns [MainFunctionNode result]:
 ')'
 '{'
 'import'
-importDefinitions=functionArguments
+importDefinitions
 ';'
 (
     statement                       { nodeFactory.addStatement($statement.result, $statement.start.getLine()); }
@@ -58,6 +58,22 @@ importDefinitions=functionArguments
 exportDefinitions
 ';'
 '}'                                 { $result = new MainFunctionNode("main", $importDefinitions.result, $exportDefinitions.result, new StatementListNode(nodeFactory.getStatementsAsArray())); }
+;
+
+importDefinitions returns [List<ImportDefinition> result]:
+                                    { $result = new ArrayList<>(); }
+(
+    (
+        TYPE IDENTIFIER             { $result.add(nodeFactory.createImportDefinition($TYPE.text, $IDENTIFIER.text, false)); }
+        | 'optional' TYPE IDENTIFIER{ $result.add(nodeFactory.createImportDefinition($TYPE.text, $IDENTIFIER.text, true)); }
+    )
+    (
+        (
+            ',' TYPE IDENTIFIER     { $result.add(nodeFactory.createImportDefinition($TYPE.text, $IDENTIFIER.text, false)); }
+            | ',' 'optional' TYPE IDENTIFIER { $result.add(nodeFactory.createImportDefinition($TYPE.text, $IDENTIFIER.text, true)); }
+        )
+    )*
+)?
 ;
 
 exportDefinitions returns [List<String> result]:
@@ -99,9 +115,9 @@ returnExpression=expression
 functionArguments returns [List<ParameterDefinition> result]:
                                     { $result = new ArrayList<>(); }
 (
-    TYPE IDENTIFIER                 { $result.add(nodeFactory.createParameterDefiniton($TYPE.text, $IDENTIFIER.text)); }
+    TYPE IDENTIFIER                 { $result.add(nodeFactory.createParameterDefinition($TYPE.text, $IDENTIFIER.text)); }
     (
-        ',' TYPE IDENTIFIER         { $result.add(nodeFactory.createParameterDefiniton($TYPE.text, $IDENTIFIER.text)); }
+        ',' TYPE IDENTIFIER         { $result.add(nodeFactory.createParameterDefinition($TYPE.text, $IDENTIFIER.text)); }
     )*
 )?
 ;
@@ -167,6 +183,7 @@ factor                              { $result = $factor.result; }
 
 factor returns [ExpressionNode result]:
 IDENTIFIER                          { $result = new VariableConstantNode($IDENTIFIER.text); }
+| 'exists' '(' IDENTIFIER ')'       { $result = new ExistsNode($IDENTIFIER.text); }
 | functionCallStatement             { $result = $functionCallStatement.result; }
 | '(' expression ')'                { $result = $expression.result; }
 ;

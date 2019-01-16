@@ -4,6 +4,7 @@ import de.sbernauer.prepro.dataset.FilePreProDataSet;
 import de.sbernauer.prepro.dataset.PreProDataSet;
 import de.sbernauer.prepro.nodes.FunctionTable;
 import de.sbernauer.prepro.nodes.SymbolTable;
+import de.sbernauer.prepro.nodes.expression.ExistsFunction;
 import de.sbernauer.prepro.nodes.statement.StatementListNode;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -11,13 +12,12 @@ import de.sbernauer.prepro.variables.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MainFunctionNode extends FunctionNode {
-    private final List<ParameterDefinition> importDefinitions;
+    private final List<ImportDefinition> importDefinitions;
     private final List<String> exportDefinitions;
 
-    public MainFunctionNode(String name, List<ParameterDefinition> importDefinitions, List<String> exportDefinitions, StatementListNode statementListNode) {
+    public MainFunctionNode(String name, List<ImportDefinition> importDefinitions, List<String> exportDefinitions, StatementListNode statementListNode) {
         super(name, null, new ArrayList<>(), statementListNode, null);
 
         this.importDefinitions = importDefinitions;
@@ -27,10 +27,14 @@ public class MainFunctionNode extends FunctionNode {
     public PreProDataSet executeMainFunction(PreProDataSet preProDataSet, FunctionTable functionTable) {
         SymbolTable symbolTable = new SymbolTable();
 
-        for (ParameterDefinition parameterDefinition : importDefinitions) {
-            INDArray array = preProDataSet.getVariable(parameterDefinition.getVariableName());
-            Variable variable = getVariableForType(parameterDefinition.getVariableType(), array);
-            symbolTable.setValue(parameterDefinition.getVariableName(), variable);
+        for (ImportDefinition importDefinition : importDefinitions) {
+            if(importDefinition.isOptional() && !preProDataSet.variableExists(importDefinition.getVariableName())) {
+                continue;
+            }
+            INDArray array = preProDataSet.getVariable(importDefinition.getVariableName());
+            Variable variable = getVariableForType(importDefinition.getVariableType(), array);
+            symbolTable.setValue(importDefinition.getVariableName(), variable);
+            ExistsFunction.addExistingVariable(importDefinition.getVariableName());
         }
 
         statementListNode.execute(symbolTable, functionTable);

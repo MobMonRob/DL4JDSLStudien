@@ -7,8 +7,8 @@ import java.util.HashMap;
 public class SymbolTable {
     private final HashMap<String, Variable> variables = new HashMap<>();
 
-    public boolean variableExists(String varialeName) {
-        return variables.containsKey(varialeName);
+    public boolean variableExists(String variableName) {
+        return variables.containsKey(variableName);
     }
 
     private Variable getValue(String variableName) {

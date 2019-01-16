@@ -44,6 +44,16 @@ public interface PreProListener extends ParseTreeListener {
 	 */
 	void exitMainFunction(PreProParser.MainFunctionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PreProParser#importDefinitions}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportDefinitions(PreProParser.ImportDefinitionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PreProParser#importDefinitions}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportDefinitions(PreProParser.ImportDefinitionsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PreProParser#exportDefinitions}.
 	 * @param ctx the parse tree
 	 */

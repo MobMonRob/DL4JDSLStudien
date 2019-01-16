@@ -8,7 +8,7 @@ public class Vector4 extends Vector {
         super(ndArray);
         int size = ndArray.shape()[1];
         if (ndArray.shape().length != 2 || size != 4) {
-            throw new RuntimeException("The given Vector3 has the size " + size + ", must be 3.");
+            throw new RuntimeException("The given Vector4 has the size " + size + ", must be 3.");
         }
     }
 
