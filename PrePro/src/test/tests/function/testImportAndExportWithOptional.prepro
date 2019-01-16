@@ -2,7 +2,11 @@ function main() {
 	import optional vec3 p3, vec3 p1, mat4 testMat4_1, optional const quaternion_1, optional mat4 notPresent;
 
 	const isPresent = exists(p1);
-	const isNotPresent = exists(notPresent);
+	const isNotPresent = foo();
 
 	export p1, p3, testMat4_1, quaternion_1, isPresent, isNotPresent;
+}
+
+function foo() returns const {
+	return exists(notPresent);
 }
