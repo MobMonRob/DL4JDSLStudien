@@ -38,6 +38,31 @@ public abstract class Variable {
                 + " and " + right.getClass().getSimpleName());
     }
 
+    public Scalar isEqualTo(Variable right) {
+        throw new RuntimeException("Cannot compare " + this.getClass().getSimpleName()
+                + " and " + right.getClass().getSimpleName());
+    }
+
+    public Scalar isLessThan(Variable right) {
+        throw new RuntimeException("Cannot compare " + this.getClass().getSimpleName()
+                + " and " + right.getClass().getSimpleName());
+    }
+
+    public Scalar isLessOrEqualThan(Variable right) {
+        throw new RuntimeException("Cannot compare " + this.getClass().getSimpleName()
+                + " and " + right.getClass().getSimpleName());
+    }
+
+    public Scalar isGreaterThan(Variable right) {
+        throw new RuntimeException("Cannot compare " + this.getClass().getSimpleName()
+                + " and " + right.getClass().getSimpleName());
+    }
+
+    public Scalar isGreaterOrEqualThan(Variable right) {
+        throw new RuntimeException("Cannot compare " + this.getClass().getSimpleName()
+                + " and " + right.getClass().getSimpleName());
+    }
+
     protected INDArray multiplyMatrixWithMatrix(Matrix left, Matrix right, int dimension) {
         //TODO Replace with faster implementation
         INDArray result = Nd4j.create((int[])[left.getAmountTimeElements(), dimension, dimension]);

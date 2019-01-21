@@ -14,8 +14,8 @@ import de.sbernauer.prepro.nodes.expression.*;
 import de.sbernauer.prepro.nodes.expression.arithmetic.*;
 import de.sbernauer.prepro.nodes.function.*;
 import de.sbernauer.prepro.nodes.debugging.*;
+import de.sbernauer.prepro.nodes.expression.logic.*;
 import de.sbernauer.prepro.variables.*;
-
 
 }
 
@@ -169,6 +169,11 @@ term                                { $result = $term.result; }
 (
       ('+' term)                    { $result = new AddNode($result, $term.result); }
     | ('-' term)                    { $result = new SubNode($result, $term.result); }
+    | expression '==' expression    { $result = new IsEqualNode($result, $term.result); }
+    | expression '<=' expression    { $result = new IsLessOrEqualNode($result, $term.result); }
+    | expression '<' expression     { $result = new IsLessNode($result, $term.result); }
+    | expression '>' expression     { $result = new IsGreaterNode($result, $term.result); }
+    | expression '>=' expression    { $result = new IsGreaterOrEqualNode($result, $term.result); }
 )*
 ;
 
