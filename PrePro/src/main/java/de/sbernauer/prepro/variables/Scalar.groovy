@@ -11,6 +11,22 @@ public class Scalar extends Variable {
         }
     }
 
+    Variable add(Scalar right) {
+        return new Scalar(ndArray.add(right.ndArray));
+    }
+
+    Variable sub(Scalar right) {
+        return new Scalar(ndArray.sub(right.ndArray));
+    }
+
+    Variable mul(Scalar right) {
+        return new Scalar(ndArray.mul(right.ndArray));
+    }
+
+    Variable div(Scalar right) {
+        return new Scalar(ndArray.div(right.ndArray));
+    }
+
     @Override
     public String toString() {
         return "Scalar{" +

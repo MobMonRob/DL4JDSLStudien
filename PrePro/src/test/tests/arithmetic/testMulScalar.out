@@ -2,10 +2,10 @@ DefaultPreProDataSet{
 dataSetEntries=
 [DataSetEntry{variableName='result', variableShape=[4, 1], startColumn=0, length=1}],
 dataSet=
-[3.00,  6.00,  9.00,  12.00]
+[1.00,  8.00,  27.00,  64.00]
 
 constants={}
 
 calculated_variables=
-result=[3.00,  6.00,  9.00,  12.00]
+result=[1.00,  8.00,  27.00,  64.00]
 }

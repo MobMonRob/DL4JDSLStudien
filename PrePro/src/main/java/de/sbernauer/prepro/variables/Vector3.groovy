@@ -12,6 +12,22 @@ public class Vector3 extends Vector {
         }
     }
 
+    public Variable add(Vector3 right) {
+        return new Vector3(ndArray.add(right.ndArray));
+    }
+
+    public Variable sub(Vector3 right) {
+        return new Vector3(ndArray.sub(right.ndArray));
+    }
+
+    Variable mul(Scalar right) {
+        return new Vector3(multiplyVectorWithScalar(this, right, 3));
+    }
+
+    public Variable mul(Vector3 right) {
+        return new Vector3(ndArray.mul(right.ndArray));
+    }
+
     @Override
     public String toString() {
         return "Vector3{" +
