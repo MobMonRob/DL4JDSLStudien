@@ -1,0 +1,9 @@
+function main() {
+	import vec3 p1, vec3 p2;
+
+	vec3 result1 = testGlobalFunctionReturnFirstArgument(p1);
+	vec3 result2 = testGlobalFunctionReturnSecondArgument(p1,p2);
+	const amountTimeElements = amountTimeElements(p1);
+
+	export p1, p2, result1, result2, amountTimeElements;
+}
