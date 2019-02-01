@@ -1,0 +1,20 @@
+DefaultPreProDataSet{
+dataSetEntries=
+[DataSetEntry{variableName='numbers', variableShape=[4, 1], startColumn=0, length=1}, DataSetEntry{variableName='numbers2', variableShape=[4, 1], startColumn=1, length=1}, DataSetEntry{variableName='equal', variableShape=[4, 1], startColumn=2, length=1}, DataSetEntry{variableName='less', variableShape=[4, 1], startColumn=3, length=1}, DataSetEntry{variableName='lessOrEqual', variableShape=[4, 1], startColumn=4, length=1}, DataSetEntry{variableName='greater', variableShape=[4, 1], startColumn=5, length=1}, DataSetEntry{variableName='greaterOrEqual', variableShape=[4, 1], startColumn=6, length=1}],
+dataSet=
+[[1.00,  11.00,  0.00,  1.00,  1.00,  0.00,  0.00],  
+ [2.00,  12.00,  0.00,  1.00,  1.00,  0.00,  0.00],  
+ [3.00,  3.00,  1.00,  0.00,  1.00,  0.00,  1.00],  
+ [4.00,  -14.00,  0.00,  0.00,  0.00,  1.00,  1.00]]
+
+constants={}
+
+calculated_variables=
+equal=[0.00,  0.00,  1.00,  0.00]
+greaterOrEqual=[0.00,  0.00,  1.00,  1.00]
+numbers2=[11.00,  12.00,  3.00,  -14.00]
+numbers=[1.00,  2.00,  3.00,  4.00]
+lessOrEqual=[1.00,  1.00,  1.00,  0.00]
+less=[1.00,  1.00,  0.00,  0.00]
+greater=[0.00,  0.00,  0.00,  1.00]
+}

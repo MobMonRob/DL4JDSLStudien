@@ -1,6 +1,7 @@
 package de.sbernauer.prepro.variables;
 
-import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.api.ndarray.INDArray
+import org.nd4j.linalg.factory.Nd4j;
 
 public class Scalar extends Variable {
     public Scalar(INDArray ndArray) {
@@ -32,5 +33,65 @@ public class Scalar extends Variable {
         return "Scalar{" +
                 "ndArray=" + ndArray +
                 '}';
+    }
+
+    public Scalar isEqualTo(Scalar right) {
+        double[] result = new double[amountTimeElements];
+        for (int i = 0; i < amountTimeElements; i++) {
+            if(ndArray.getDouble(i) == right.ndArray.getDouble(i)) {
+                result[i] = 1;
+            } else {
+                result[i] = 0;
+            }
+        }
+        return new Scalar(Nd4j.create(result, [amountTimeElements, 1] as int[]));
+    }
+
+    public Scalar isLessThan(Scalar right) {
+        double[] result = new double[amountTimeElements];
+        for (int i = 0; i < amountTimeElements; i++) {
+            if(ndArray.getDouble(i) < right.ndArray.getDouble(i)) {
+                result[i] = 1;
+            } else {
+                result[i] = 0;
+            }
+        }
+        return new Scalar(Nd4j.create(result, [amountTimeElements, 1] as int[]));
+    }
+
+    public Scalar isLessOrEqualThan(Scalar right) {
+        double[] result = new double[amountTimeElements];
+        for (int i = 0; i < amountTimeElements; i++) {
+            if(ndArray.getDouble(i) <= right.ndArray.getDouble(i)) {
+                result[i] = 1;
+            } else {
+                result[i] = 0;
+            }
+        }
+        return new Scalar(Nd4j.create(result, [amountTimeElements, 1] as int[]));
+    }
+
+    public Scalar isGreaterThan(Scalar right) {
+        double[] result = new double[amountTimeElements];
+        for (int i = 0; i < amountTimeElements; i++) {
+            if(ndArray.getDouble(i) > right.ndArray.getDouble(i)) {
+                result[i] = 1;
+            } else {
+                result[i] = 0;
+            }
+        }
+        return new Scalar(Nd4j.create(result, [amountTimeElements, 1] as int[]));
+    }
+
+    public Scalar isGreaterOrEqualThan(Scalar right) {
+        double[] result = new double[amountTimeElements];
+        for (int i = 0; i < amountTimeElements; i++) {
+            if(ndArray.getDouble(i) >= right.ndArray.getDouble(i)) {
+                result[i] = 1;
+            } else {
+                result[i] = 0;
+            }
+        }
+        return new Scalar(Nd4j.create(result, [amountTimeElements, 1] as int[]));
     }
 }

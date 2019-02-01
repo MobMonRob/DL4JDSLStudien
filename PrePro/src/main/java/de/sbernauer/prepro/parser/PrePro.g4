@@ -169,11 +169,6 @@ term                                { $result = $term.result; }
 (
       ('+' term)                    { $result = new AddNode($result, $term.result); }
     | ('-' term)                    { $result = new SubNode($result, $term.result); }
-    | expression '==' expression    { $result = new IsEqualNode($result, $term.result); }
-    | expression '<=' expression    { $result = new IsLessOrEqualNode($result, $term.result); }
-    | expression '<' expression     { $result = new IsLessNode($result, $term.result); }
-    | expression '>' expression     { $result = new IsGreaterNode($result, $term.result); }
-    | expression '>=' expression    { $result = new IsGreaterOrEqualNode($result, $term.result); }
 )*
 ;
 
@@ -183,6 +178,11 @@ factor                              { $result = $factor.result; }
       ('*' factor)                  { $result = new MulNode($result, $factor.result); }
     | ('X' factor)                  { $result = new CrossProductNode($result, $factor.result); }
     | ('/' factor)                  { $result = new DivNode($result, $factor.result); }
+    | '==' factor                   { $result = new IsEqualNode($result, $factor.result); }
+    | '<=' factor                   { $result = new IsLessOrEqualNode($result, $factor.result); }
+    | '<' factor                    { $result = new IsLessNode($result, $factor.result); }
+    | '>' factor                    { $result = new IsGreaterNode($result, $factor.result); }
+    | '>=' factor                   { $result = new IsGreaterOrEqualNode($result, $factor.result); }
 )*
 ;
 

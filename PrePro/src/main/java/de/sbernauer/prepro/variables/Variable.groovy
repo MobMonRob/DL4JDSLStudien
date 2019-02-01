@@ -1,6 +1,6 @@
 package de.sbernauer.prepro.variables;
 
-import org.nd4j.linalg.api.ndarray.INDArray
+import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
 public abstract class Variable {
@@ -65,7 +65,7 @@ public abstract class Variable {
 
     protected INDArray multiplyMatrixWithMatrix(Matrix left, Matrix right, int dimension) {
         //TODO Replace with faster implementation
-        INDArray result = Nd4j.create((int[])[left.getAmountTimeElements(), dimension, dimension]);
+        INDArray result = Nd4j.create((int[]) [left.getAmountTimeElements(), dimension, dimension]);
         for (int i = 0; i < left.getAmountTimeElements(); i++) {
             result.putRow(i, left.getNdArray().getRow(i).mmul(right.getNdArray().getRow(i)));
         }
@@ -87,7 +87,7 @@ public abstract class Variable {
 
     protected INDArray multiplyMatrixWithScalar(Matrix left, Scalar right, int dimension) {
         //TODO Replace with faster implementation
-        INDArray result = Nd4j.create((int[])[left.getAmountTimeElements(), dimension, dimension]);
+        INDArray result = Nd4j.create((int[]) [left.getAmountTimeElements(), dimension, dimension]);
         for (int i = 0; i < left.getAmountTimeElements(); i++) {
             INDArray leftValue = left.getNdArray().getRow(i);
             double rightValue = right.getNdArray().getDouble(i);
@@ -100,7 +100,7 @@ public abstract class Variable {
 
     protected INDArray multiplyVectorWithScalar(Vector left, Scalar right, int dimension) {
         //TODO Replace with faster implementation
-        INDArray result = Nd4j.create((int[])[left.getAmountTimeElements(), dimension]);
+        INDArray result = Nd4j.create((int[]) [left.getAmountTimeElements(), dimension]);
         for (int i = 0; i < left.getAmountTimeElements(); i++) {
             INDArray leftValue = left.getNdArray().getRow(i);
             double rightValue = right.getNdArray().getDouble(i);
