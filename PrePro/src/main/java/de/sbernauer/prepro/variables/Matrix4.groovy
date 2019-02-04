@@ -1,8 +1,6 @@
-package de.sbernauer.prepro.variables;
+package de.sbernauer.prepro.variables
 
-import org.nd4j.linalg.api.ndarray.INDArray;
-
-import java.util.Arrays;
+import org.nd4j.linalg.api.ndarray.INDArray
 
 public class Matrix4 extends Matrix {
 
@@ -12,6 +10,18 @@ public class Matrix4 extends Matrix {
             throw new RuntimeException("The given Matrix4 has the shape " + Arrays.toString(ndArray.shape()) +
                     ", must be [4,4].");
         }
+    }
+
+    public Variable add(Matrix4 right) {
+        return new Matrix4(ndArray.add(right.ndArray));
+    }
+
+    public Variable sub(Matrix4 right) {
+        return new Matrix4(ndArray.sub(right.ndArray));
+    }
+
+    public Variable mul(Matrix4 right) {
+        return new Matrix4(multiplyMatrixWithMatrix(this, right, 4));
     }
 
     @Override

@@ -1,0 +1,30 @@
+DefaultPreProDataSet{
+dataSetEntries=
+[DataSetEntry{variableName='p1', variableShape=[4, 3], startColumn=0, length=3}, DataSetEntry{variableName='p2', variableShape=[4, 3], startColumn=3, length=3}, DataSetEntry{variableName='result1', variableShape=[4, 3], startColumn=6, length=3}, DataSetEntry{variableName='result2', variableShape=[4, 3], startColumn=9, length=3}],
+dataSet=
+[[42.00,  0.00,  0.00,  43.00,  0.00,  0.00,  42.00,  0.00,  0.00,  43.00,  0.00,  0.00],  
+ [1.00,  0.00,  0.00,  44,662.00,  0.00,  0.00,  1.00,  0.00,  0.00,  44,662.00,  0.00,  0.00],  
+ [5.00,  0.00,  0.00,  6.00,  0.00,  0.00,  5.00,  0.00,  0.00,  6.00,  0.00,  0.00],  
+ [6.00,  0.00,  0.00,  7.00,  0.00,  0.00,  6.00,  0.00,  0.00,  7.00,  0.00,  0.00]]
+
+constants={amountTimeElements=4.00}
+
+calculated_variables=
+p1=[[42.00,  0.00,  0.00],  
+ [1.00,  0.00,  0.00],  
+ [5.00,  0.00,  0.00],  
+ [6.00,  0.00,  0.00]]
+p2=[[43.00,  0.00,  0.00],  
+ [44,662.00,  0.00,  0.00],  
+ [6.00,  0.00,  0.00],  
+ [7.00,  0.00,  0.00]]
+amountTimeElements=4.00
+result2=[[43.00,  0.00,  0.00],  
+ [44,662.00,  0.00,  0.00],  
+ [6.00,  0.00,  0.00],  
+ [7.00,  0.00,  0.00]]
+result1=[[42.00,  0.00,  0.00],  
+ [1.00,  0.00,  0.00],  
+ [5.00,  0.00,  0.00],  
+ [6.00,  0.00,  0.00]]
+}

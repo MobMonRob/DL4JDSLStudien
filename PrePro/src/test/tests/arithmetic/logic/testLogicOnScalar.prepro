@@ -1,0 +1,15 @@
+function main() {
+	import scal numbers, scal numbers2;
+
+	scal equal = numbers == numbers2;
+	scal less = testLess(numbers, numbers2);
+	scal lessOrEqual = numbers <= numbers2;
+	scal greater = numbers > numbers2;
+	scal greaterOrEqual = numbers >= numbers2;
+
+	export numbers, numbers2, equal, less, lessOrEqual, greater, greaterOrEqual;
+}
+
+function testLess(scal scal1, scal scal2) returns scal {
+	return scal1 < scal2;
+}

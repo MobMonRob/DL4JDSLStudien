@@ -3,15 +3,21 @@ package de.sbernauer.prepro.nodes.expression.arithmetic;
 import de.sbernauer.prepro.nodes.FunctionTable;
 import de.sbernauer.prepro.nodes.SymbolTable;
 import de.sbernauer.prepro.nodes.expression.ExpressionNode;
-import de.sbernauer.prepro.variables.Scalar;
-import de.sbernauer.prepro.variables.Variable;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
+import de.sbernauer.prepro.variables.*;
 
-public class DivNode extends ExpressionNode {
+/**
+ * Represents a multiplication.
+ * The exact operation depends on the given types.
+ * Represented by a "*"
+ */
+public class MulNode extends ExpressionNode {
 
     private ExpressionNode left;
     private ExpressionNode right;
 
-    public DivNode(ExpressionNode left, ExpressionNode right) {
+    public MulNode(ExpressionNode left, ExpressionNode right) {
         this.left = left;
         this.right = right;
     }
@@ -21,10 +27,6 @@ public class DivNode extends ExpressionNode {
         Variable leftValue = left.execute(symbolTable, functionTable);
         Variable rightValue = right.execute(symbolTable, functionTable);
 
-        if (leftValue instanceof Scalar && rightValue instanceof Scalar) {
-            return new Scalar((leftValue).getNdArray().div((rightValue).getNdArray()));
-        } else {
-            throw new RuntimeException("Cant divide because of wrong types");
-        }
+        return leftValue.mul(rightValue);
     }
 }

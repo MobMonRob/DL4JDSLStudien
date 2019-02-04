@@ -39,7 +39,9 @@ package de.sbernauer.prepro.plugin.syntaxhighlighting.parser;
     	}
 }
 
-prepro: (mainFunction | function)* EOF;
+prepro options {backtrack=true;}: ((mainFunction | function)* )
+| ((IMPORT functionArguments SEMICOLON)? statement* (EXPORT exportDefinitions SEMICOLON)? function*)
+EOF;
 
 mainFunction: FUNCTION MAIN LEFTPAREN RIGHTPAREN LEFTBRACE
 IMPORT functionArguments SEMICOLON
@@ -72,7 +74,7 @@ expression: term ((PLUS term) | (MINUS term))*;
 
 term: factor ((MUL factor) | (DIV factor) | (CROSSPRODUCT factor))*;
 
-factor: IDENTIFIER | functionCallStatement | (LEFTPAREN expression RIGHTPAREN);
+factor: IDENTIFIER | functionCallStatement | (LEFTPAREN expression RIGHTPAREN) | NUMERIC_LITERAL;
 
 FUNCTION: 'function';
 MAIN: 'main';
@@ -99,5 +101,5 @@ WS: (' ' | '\t' | '\r' | '\n')+ {$channel=HIDDEN;};
 
 TYPE : 'vec3' | 'vec4' | 'mat' | 'mat3' | 'mat4' | 'scal' | 'const';
 STRING_LITERAL : '"' (~('"' | '\\' | '\r' | '\n'))* '"';
-NUMERIC_LITERAL : '-' ('0' | '1'..'9' '0'..'9'*);
+NUMERIC_LITERAL : '-'? ('0' | '1'..'9' '0'..'9'*) ('.' '0'..'9'*)?;
 IDENTIFIER : ('A'..'Z' | 'a'..'z' | '_' | '$') (('A'..'Z' | 'a'..'z' | '_' | '$') | '0'..'9')*;

@@ -9,16 +9,24 @@ public class FunctionTable {
     private HashMap<String, Function> functions = new HashMap<>();
 
     public void addFunction(Function function) {
+        addFunction(function, true);
+    }
+
+    public void addFunction(Function function, boolean checkIfAlreadyEsists) {
         if (functions.containsKey(function.getFunctionName())) {
-            throw new RuntimeException("The function " + function.getFunctionName() + " is already defined.");
+            if (checkIfAlreadyEsists) {
+                throw new RuntimeException("The function " + function.getFunctionName() + " is already defined.");
+            } else {
+                System.out.println("[Warning] Overwriting function '" + function.getFunctionName() + "'");
+            }
         }
         functions.put(function.getFunctionName(), function);
     }
 
-    public Function getFunction(String name) {
-        Function function = functions.get(name);
+    public Function getFunction(String functionName) {
+        Function function = functions.get(functionName);
         if (function == null) {
-            throw new RuntimeException("The function \"" + name + "\" is not defined.");
+            throw new RuntimeException("The function \"" + functionName + "\" is not defined.");
         }
         return function;
     }

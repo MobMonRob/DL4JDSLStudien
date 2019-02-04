@@ -56,8 +56,13 @@ public class FilePreProDataSet implements PreProDataSet {
     }
 
     public FilePreProDataSet(List<INDArray> variables, List<String> variableNames) {
-        if (variables.size() == 0 || (variables.size() != variableNames.size())) {
+        if (variables.size() != variableNames.size()) {
             throw new RuntimeException("The lists of variables and variableNames must have the same size.");
+        }
+        if(variables.size() == 0) { // Empty DataSet
+            this.dataSet = new DataSet(null, null);
+            this.dataSetEntries = new ArrayList<>();
+            return;
         }
 
         int amountTimeElements = variables.get(0).shape()[0];
@@ -201,7 +206,7 @@ public class FilePreProDataSet implements PreProDataSet {
         }
         return "DefaultPreProDataSet{\n" +
                 "dataSetEntries=\n" + dataSetEntries + ",\n" +
-                "dataSet=\n" + dataSet.getFeatures().toString() + "\n\n" +
+                "dataSet=\n" + (dataSet.getFeatures() == null ? "null" : dataSet.getFeatures().toString()) + "\n\n" +
                 "constants=" + constants.toString() + "\n\n" +
                 "calculated_variables=\n" + stringBuilderVariables.toString() +
                 '}';

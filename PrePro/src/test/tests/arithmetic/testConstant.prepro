@@ -1,0 +1,2 @@
+const test = 42.53;
+export test;

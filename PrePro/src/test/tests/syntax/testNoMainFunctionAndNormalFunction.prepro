@@ -1,0 +1,9 @@
+import vec3 p1;
+
+vec3 res = pow2(p1);
+
+export p1, res;
+
+function pow2(vec3 p1) returns vec3 {
+    return p1 * p1;
+}

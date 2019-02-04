@@ -20,8 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class TestExecutor {
     private static final PrintStream SYSTEM_OUT = System.out;
 
-    private PreProDataSet TEST_PRE_PRO_DATA_SET
-            = new FilePreProDataSet("src/test/tests/test.dataset");
+    private PreProDataSet TEST_PRE_PRO_DATA_SET = new FilePreProDataSet("src/test/tests/test.dataset");
 
     @Test
     public void runTests() throws IOException {
@@ -51,7 +50,7 @@ public class TestExecutor {
     private List<File> getAllTestFilesAndCheckIfOutputExists() {
         File dir = new File("src/test/tests/");
 
-        List<File> testFiles = (List<File>) FileUtils.listFiles(dir, new String[]{"prepro"}, true);
+        List<File> testFiles = (List<File>) FileUtils.listFiles(dir, (String[])["prepro"], true);
 
         for (File testFile : testFiles) {
             File outputFile = new File(testFile.getAbsolutePath().replace(".prepro", ".out"));

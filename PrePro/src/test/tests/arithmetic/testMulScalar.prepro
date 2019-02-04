@@ -1,6 +1,8 @@
 function main() {
 	import scal numbers;
 
+	print numbers;
+
 	scal result = numbers * numbers * numbers;
 
 	export result;
