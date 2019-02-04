@@ -1,0 +1,5 @@
+import vec3 p1;
+
+vec3 res = p1 * p1;
+
+export p1, res;

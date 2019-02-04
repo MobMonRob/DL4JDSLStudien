@@ -3,15 +3,17 @@ package de.sbernauer.prepro.nodes;
 import de.sbernauer.prepro.dataset.PreProDataSet;
 import de.sbernauer.prepro.nodes.function.CustomFunctionNode;
 import de.sbernauer.prepro.nodes.function.FunctionNode;
+import de.sbernauer.prepro.nodes.function.GlobalFunctions;
 import de.sbernauer.prepro.nodes.function.MainFunctionNode;
 
 public class MainNode implements PreProNode {
     private final FunctionTable functionTable = new FunctionTable();
 
     public MainNode(FunctionNode[] functionNodes) {
-        Arrays.stream(functionNodes).forEach(
-                functionTable::addFunction
-        );
+        GlobalFunctions.registerGlobalFunctions(functionTable);
+        for (FunctionNode function : functionNodes) {
+            functionTable.addFunction(function, false);
+        }
     }
 
     public PreProDataSet execute(PreProDataSet preProDataSet) {

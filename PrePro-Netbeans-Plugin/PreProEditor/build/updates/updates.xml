@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE module_updates PUBLIC "-//NetBeans//DTD Autoupdate Catalog 2.6//EN" "http://www.netbeans.org/dtds/autoupdate-catalog-2_6.dtd">
+<module_updates timestamp="49/48/09/04/02/2019">
+
+
+
+<module codenamebase="de.sbernauer.prepro.plugin.filetype" distribution="de-sbernauer-prepro-plugin-filetype.nbm" downloadsize="13865" homepage="" license="78875F8A" moduleauthor="Sebastian Bernauer" needsrestart="true" releasedate="2019/02/04" targetcluster="preproeditor">
+    <manifest AutoUpdate-Show-In-Client="true" OpenIDE-Module="de.sbernauer.prepro.plugin.filetype" OpenIDE-Module-Implementation-Version="190204" OpenIDE-Module-Java-Dependencies="Java &gt; 1.7" OpenIDE-Module-Module-Dependencies="org.netbeans.api.templates &gt; 1.7.1, org.openide.awt &gt; 7.67.1, org.openide.dialogs &gt; 7.42.1, org.openide.filesystems &gt; 9.10.2, org.openide.loaders &gt; 7.66.1, org.openide.nodes &gt; 7.45.1, org.openide.text &gt; 6.67.1, org.openide.util &gt; 9.7.1, org.openide.util.lookup &gt; 8.33.1, org.openide.util.ui &gt; 9.6.1, org.openide.windows &gt; 6.75.1" OpenIDE-Module-Name="PreProFileType" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="Detection for the FileType prepro for the DSL PrePro" OpenIDE-Module-Specification-Version="1.0"/>
+    
+</module>
+
+<module codenamebase="de.sbernauer.prepro.plugin.syntaxhighlighting" distribution="de-sbernauer-prepro-plugin-syntaxhighlighting.nbm" downloadsize="26009" homepage="" license="78875F8A" moduleauthor="Sebastian Bernauer" needsrestart="true" releasedate="2019/02/04" targetcluster="preproeditor">
+    <manifest AutoUpdate-Show-In-Client="true" OpenIDE-Module="de.sbernauer.prepro.plugin.syntaxhighlighting" OpenIDE-Module-Implementation-Version="190204" OpenIDE-Module-Java-Dependencies="Java &gt; 1.7" OpenIDE-Module-Module-Dependencies="org.netbeans.libs.antlr3.runtime &gt; 1.21.1.1, org.netbeans.modules.editor/3 &gt; 1.87.1.6.3.24.56, org.netbeans.modules.editor.document &gt; 1.9.1.3, org.netbeans.modules.editor.lib/3 &gt; 4.7.2.24.3.56, org.netbeans.modules.editor.mimelookup/1 &gt; 1.40.1, org.netbeans.modules.lexer/2 &gt; 1.63.1.1, org.netbeans.modules.parsing.api/1 &gt; 9.6.1.8, org.netbeans.spi.editor.hints/0 &gt; 1.40.1.7.56, org.openide.filesystems &gt; 9.10.2, org.openide.util &gt; 9.7.1, org.openide.util.lookup &gt; 8.33.1, org.openide.util.ui &gt; 9.6.1" OpenIDE-Module-Name="PreProSyntaxHighlighter" OpenIDE-Module-Requires="org.openide.modules.ModuleFormat1" OpenIDE-Module-Short-Description="SyntaxHighligting for the DSL PrePro" OpenIDE-Module-Specification-Version="1.0"/>
+    
+</module>
+
+<license name="78875F8A" url="licenses/78875F8A.license"/>
+</module_updates>
+
