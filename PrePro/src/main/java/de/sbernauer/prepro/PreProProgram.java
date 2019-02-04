@@ -19,6 +19,10 @@ public class PreProProgram {
             PreProLexer lexer = new PreProLexer(CharStreams.fromFileName(fileName));
             PreProParser parser = new PreProParser(new CommonTokenStream(lexer));
             this.mainNode = parser.prepro().result;
+            int syntaxErrors = parser.getNumberOfSyntaxErrors();
+            if(syntaxErrors > 0) {
+                throw new RuntimeException("Cannot read file " + fileName + ". Had " + syntaxErrors + " syntax error.");
+            }
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }

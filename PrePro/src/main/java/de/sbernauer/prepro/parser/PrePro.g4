@@ -32,14 +32,23 @@ private NodeFactory nodeFactory = new NodeFactory();
 
 // parser
 
-prepro returns [MainNode result]
-:                                   { nodeFactory.startFunctionList();
-                                      MainFunctionNode mainFunctionNode;}
-(
+prepro returns [MainNode result]:
+(                                   { nodeFactory.startFunctionList(); }
     mainFunction                    { nodeFactory.addFunction($mainFunction.result); }
     | function                      { nodeFactory.addFunction($function.result); }
-)*
-EOF                                 { $result = new MainNode(nodeFactory.getFunctionsAsArray()); }
+)*                                  { $result = new MainNode(nodeFactory.getFunctionsAsArray()); }
+|
+(                                   { nodeFactory.startFunctionList(); nodeFactory.startStatementList(); }
+    ('import' importDefinitions ';')?
+    (
+        statement                   { nodeFactory.addStatement($statement.result, $statement.start.getLine()); }
+    )*
+    ('export' exportDefinitions ';')? { nodeFactory.addFunction(new MainFunctionNode("main", (_localctx.importDefinitions == null ? new ArrayList<>() : $importDefinitions.result), (_localctx.exportDefinitions == null ? new ArrayList<>() : $exportDefinitions.result), new StatementListNode(nodeFactory.getStatementsAsArray()))); }
+    (
+        function                    { nodeFactory.addFunction($function.result); }
+    )*
+)                                   { $result = new MainNode(nodeFactory.getFunctionsAsArray()); }
+EOF
 ;
 
 mainFunction returns [MainFunctionNode result]:
@@ -191,6 +200,7 @@ IDENTIFIER                          { $result = new VariableConstantNode($IDENTI
 | 'exists' '(' IDENTIFIER ')'       { $result = new ExistsNode($IDENTIFIER.text); }
 | functionCallStatement             { $result = $functionCallStatement.result; }
 | '(' expression ')'                { $result = $expression.result; }
+| NUMERIC_LITERAL                   { $result = new ConstantNode(Double.parseDouble($NUMERIC_LITERAL.text)); }
 ;
 
 // lexer
@@ -212,4 +222,4 @@ TYPE : 'vec3' | 'vec4' | 'mat' | 'mat3' | 'mat4' | 'scal' | 'const';
 
 IDENTIFIER : LETTER (LETTER | DIGIT)*;
 STRING_LITERAL : '"' STRING_CHAR* '"';
-NUMERIC_LITERAL : '-'? ('0' | NON_ZERO_DIGIT DIGIT*);
+NUMERIC_LITERAL : '-'? ('0' | NON_ZERO_DIGIT DIGIT*) ('.' DIGIT*)?;

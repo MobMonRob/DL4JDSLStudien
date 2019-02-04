@@ -1,0 +1,12 @@
+DefaultPreProDataSet{
+dataSetEntries=
+[],
+dataSet=
+null
+
+constants={test=42.00, foo=13.00}
+
+calculated_variables=
+test=42.00
+foo=13.00
+}
