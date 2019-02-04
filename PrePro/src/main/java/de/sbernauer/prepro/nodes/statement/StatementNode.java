@@ -1,10 +1,10 @@
 package de.sbernauer.prepro.nodes.statement;
 
-import com.oracle.truffle.api.nodes.Node;
 import de.sbernauer.prepro.nodes.FunctionTable;
+import de.sbernauer.prepro.nodes.PreProNode;
 import de.sbernauer.prepro.nodes.SymbolTable;
 
-public abstract class StatementNode extends Node {
+public abstract class StatementNode implements PreProNode {
     private int lineNumber;
 
     public abstract void execute(SymbolTable symbolTable, FunctionTable functionTable);

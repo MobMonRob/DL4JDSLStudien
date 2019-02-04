@@ -1,15 +1,15 @@
 package de.sbernauer.prepro.debbuging;
 
-import com.oracle.truffle.api.nodes.Node;
 import de.sbernauer.prepro.nodes.FunctionTable;
+import de.sbernauer.prepro.nodes.PreProNode;
 import de.sbernauer.prepro.nodes.SymbolTable;
 import de.sbernauer.prepro.nodes.expression.ExpressionNode;
 import de.sbernauer.prepro.nodes.statement.StatementNode;
+import de.sbernauer.prepro.parser.PreProLexer;
+import de.sbernauer.prepro.parser.PreProParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ConsoleErrorListener;
-import de.sbernauer.prepro.parser.PreProLexer;
-import de.sbernauer.prepro.parser.PreProParser;
 
 import java.io.InputStreamReader;
 import java.util.Scanner;
@@ -29,6 +29,27 @@ public class DebuggerInstance implements Debugger {
             instance = new DebuggerInstance();
         }
         return instance;
+    }
+
+    private static String evaluateExpression(String expression, SymbolTable symbolTable, FunctionTable functionTable) {
+
+        try {
+            PreProLexer lexer = new PreProLexer(CharStreams.fromString(expression));
+            PreProParser parser = new PreProParser(new CommonTokenStream(lexer));
+            parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
+            PreProNode evalNode = parser.statement().result;
+            if (evalNode != null) {
+                ((StatementNode) evalNode).execute(symbolTable, functionTable);
+                return "Executed";
+            } else {
+                lexer.reset();
+                evalNode = new PreProParser(new CommonTokenStream(lexer)).expression().result;
+                return ((ExpressionNode) evalNode).execute(symbolTable, functionTable).toString();
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return "Error: " + e.getMessage();
+        }
     }
 
     @Override
@@ -56,25 +77,4 @@ public class DebuggerInstance implements Debugger {
             }
         }
     }
-
-        private static String evaluateExpression(String expression, SymbolTable symbolTable, FunctionTable functionTable) {
-
-            try {
-                PreProLexer lexer = new PreProLexer(CharStreams.fromString(expression));
-                PreProParser parser = new PreProParser(new CommonTokenStream(lexer));
-                parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
-                Node evalNode = parser.statement().result;
-                if (evalNode != null) {
-                    ((StatementNode) evalNode).execute(symbolTable, functionTable);
-                    return "Executed";
-                } else {
-                    lexer.reset();
-                    evalNode = new PreProParser(new CommonTokenStream(lexer)).expression().result;
-                    return ((ExpressionNode) evalNode).execute(symbolTable, functionTable).toString();
-                }
-            } catch (RuntimeException e) {
-                e.printStackTrace();
-                return "Error: " + e.getMessage();
-            }
-        }
 }

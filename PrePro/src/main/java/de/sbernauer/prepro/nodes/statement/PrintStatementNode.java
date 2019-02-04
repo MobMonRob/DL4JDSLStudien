@@ -9,7 +9,6 @@ import java.io.PrintStream;
 public class PrintStatementNode extends StatementNode {
     private static final PrintStream OUTPUT_STREAM = System.out;
 
-    @Child
     private ExpressionNode expressionNode;
 
     private boolean printExpressionAndNotText;

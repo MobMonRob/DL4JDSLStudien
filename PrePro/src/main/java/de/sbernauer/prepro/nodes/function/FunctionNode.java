@@ -1,7 +1,7 @@
 package de.sbernauer.prepro.nodes.function;
 
-import com.oracle.truffle.api.nodes.Node;
 import de.sbernauer.prepro.nodes.FunctionTable;
+import de.sbernauer.prepro.nodes.PreProNode;
 import de.sbernauer.prepro.nodes.SymbolTable;
 import de.sbernauer.prepro.nodes.expression.ExpressionNode;
 import de.sbernauer.prepro.nodes.statement.StatementListNode;
@@ -11,13 +11,12 @@ import de.sbernauer.prepro.variables.VariableType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionNode extends Node implements Function {
+public class FunctionNode implements PreProNode, Function {
     protected final List<ParameterDefinition> parameterDefinitions;
     private final String functionName;
     private final VariableType returnType; /* null, if returnType = void */
     private final ExpressionNode returnExpression;
 
-    @Child
     protected StatementListNode statementListNode;
 
     /**

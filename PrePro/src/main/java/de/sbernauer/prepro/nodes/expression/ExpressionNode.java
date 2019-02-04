@@ -1,13 +1,11 @@
 package de.sbernauer.prepro.nodes.expression;
 
-import com.oracle.truffle.api.instrumentation.GenerateWrapper;
-import com.oracle.truffle.api.nodes.Node;
 import de.sbernauer.prepro.nodes.FunctionTable;
+import de.sbernauer.prepro.nodes.PreProNode;
 import de.sbernauer.prepro.nodes.SymbolTable;
 import de.sbernauer.prepro.variables.Variable;
 
-@GenerateWrapper
-public abstract class ExpressionNode extends Node {
+public abstract class ExpressionNode implements PreProNode {
 
     /**
      * The execute method when no specialization is possible. This is the most general case,

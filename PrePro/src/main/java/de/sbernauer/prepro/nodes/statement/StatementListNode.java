@@ -6,7 +6,7 @@ import de.sbernauer.prepro.nodes.SymbolTable;
 import java.util.Arrays;
 
 public class StatementListNode extends StatementNode {
-    @Children
+
     private StatementNode[] statementNodes;
 
     private int executionCount = 0;

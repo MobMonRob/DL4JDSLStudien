@@ -11,7 +11,6 @@ public class AssignStatementNode extends StatementNode {
     private final String variableName;
     private final Class variableType;
 
-    @Child
     private ExpressionNode expressionNode;
 
     /**
