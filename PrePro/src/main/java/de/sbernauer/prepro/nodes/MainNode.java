@@ -16,10 +16,10 @@ public class MainNode implements PreProNode {
         }
     }
 
-    public PreProDataSet execute(PreProDataSet preProDataSet) {
+    public PreProDataSet execute(PreProDataSet preProDataSet, SymbolTable symbolTable) {
         MainFunctionNode mainFunctionNode = (MainFunctionNode) functionTable.getFunction("main");
 
-        return mainFunctionNode.executeMainFunction(preProDataSet, functionTable);
+        return mainFunctionNode.executeMainFunction(preProDataSet, functionTable, symbolTable);
     }
 
     public void registerFunction(Class clazz, String functionName) {

@@ -1,0 +1,3 @@
+const testSymbolTableResult = testSymbolTableX + testSymbolTableY;
+
+export testSymbolTableResult;

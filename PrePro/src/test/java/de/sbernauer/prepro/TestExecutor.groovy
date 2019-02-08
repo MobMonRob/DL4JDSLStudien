@@ -6,14 +6,9 @@ import de.sbernauer.prepro.variables.Vector3;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -50,7 +45,7 @@ public class TestExecutor {
     private List<File> getAllTestFilesAndCheckIfOutputExists() {
         File dir = new File("src/test/tests/");
 
-        List<File> testFiles = (List<File>) FileUtils.listFiles(dir, (String[])["prepro"], true);
+        List<File> testFiles = (List<File>) FileUtils.listFiles(dir, (String[]) ["prepro"], true);
 
         for (File testFile : testFiles) {
             File outputFile = new File(testFile.getAbsolutePath().replace(".prepro", ".out"));

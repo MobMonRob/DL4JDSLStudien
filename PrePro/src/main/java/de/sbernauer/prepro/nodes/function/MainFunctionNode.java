@@ -6,9 +6,9 @@ import de.sbernauer.prepro.nodes.FunctionTable;
 import de.sbernauer.prepro.nodes.SymbolTable;
 import de.sbernauer.prepro.nodes.expression.ExistsFunction;
 import de.sbernauer.prepro.nodes.statement.StatementListNode;
+import de.sbernauer.prepro.variables.*;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
-import de.sbernauer.prepro.variables.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,9 @@ public class MainFunctionNode extends FunctionNode {
         this.exportDefinitions = exportDefinitions;
     }
 
-    public PreProDataSet executeMainFunction(PreProDataSet preProDataSet, FunctionTable functionTable) {
-        SymbolTable symbolTable = new SymbolTable();
-
+    public PreProDataSet executeMainFunction(PreProDataSet preProDataSet, FunctionTable functionTable, SymbolTable symbolTable) {
         for (ImportDefinition importDefinition : importDefinitions) {
-            if(importDefinition.isOptional() && !preProDataSet.variableExists(importDefinition.getVariableName())) {
+            if (importDefinition.isOptional() && !preProDataSet.variableExists(importDefinition.getVariableName())) {
                 continue;
             }
             INDArray array = preProDataSet.getVariable(importDefinition.getVariableName());
@@ -61,7 +59,7 @@ public class MainFunctionNode extends FunctionNode {
         }
 
         PreProDataSet dataSet = new FilePreProDataSet(timeSeries, timeSeriesNames);
-        for(int i = 0; i < constants.size(); i++) {
+        for (int i = 0; i < constants.size(); i++) {
             dataSet.addConstant(constantNames.get(i), constants.get(i));
         }
 
