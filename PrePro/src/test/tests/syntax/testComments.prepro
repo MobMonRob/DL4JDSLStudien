@@ -1,0 +1,10 @@
+// Let's import p1
+import vec3 p1;
+
+/* Doing
+   a highly
+   complicated
+   calculating... */
+vec3 res = p1 * p1;
+
+export p1, res;
