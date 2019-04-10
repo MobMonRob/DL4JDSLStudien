@@ -152,6 +152,18 @@ public class PreProBaseListener implements PreProListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterThrowStatement(PreProParser.ThrowStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitThrowStatement(PreProParser.ThrowStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDebugStatement(PreProParser.DebugStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}

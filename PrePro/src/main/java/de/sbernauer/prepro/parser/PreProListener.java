@@ -124,6 +124,16 @@ public interface PreProListener extends ParseTreeListener {
 	 */
 	void exitPrintStatement(PreProParser.PrintStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PreProParser#throwStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterThrowStatement(PreProParser.ThrowStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PreProParser#throwStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitThrowStatement(PreProParser.ThrowStatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PreProParser#debugStatement}.
 	 * @param ctx the parse tree
 	 */

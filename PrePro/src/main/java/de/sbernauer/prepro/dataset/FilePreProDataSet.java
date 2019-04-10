@@ -59,7 +59,7 @@ public class FilePreProDataSet implements PreProDataSet {
         if (variables.size() != variableNames.size()) {
             throw new RuntimeException("The lists of variables and variableNames must have the same size.");
         }
-        if(variables.size() == 0) { // Empty DataSet
+        if (variables.size() == 0) { // Empty DataSet
             this.dataSet = new DataSet(null, null);
             this.dataSetEntries = new ArrayList<>();
             return;
@@ -145,9 +145,12 @@ public class FilePreProDataSet implements PreProDataSet {
                 if (variableName.equals(dataSetEntry.getVariableName())) {
                     int startColumn = dataSetEntry.getStartColumn();
                     int endColumn = startColumn + dataSetEntry.getLength();
+                    int[] columns = new int[endColumn - startColumn];
+                    for (int i = 0; i < columns.length; i++) {
+                        columns[i] = startColumn + i;
+                    }
 
-                    return dataSet.getFeatures()
-                            .get(NDArrayIndex.all(), NDArrayIndex.interval(startColumn, endColumn))
+                    return dataSet.getFeatures().getColumns(columns)
                             .reshape(dataSetEntry.getVariableShape());
                 }
             }

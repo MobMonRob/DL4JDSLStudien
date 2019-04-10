@@ -1,0 +1,13 @@
+import optional vec3 a, optional vec3 b;
+
+vec3 center = (exists(a) && exists(b)) ** (a + b) / 2
+|| exists(a) ** a
+|| exists(b) ** b
+|| throw "Neither a or b exists";
+
+const aIsExisting = exists(a);
+const bIsExisting = exists(b);
+const somethingExisting = (exists(a) || exists(b)) && (exists(a) || exists(b));
+const bothExisting = (exists(a) && exists(b)) || (exists(a) && exists(b));
+
+export aIsExisting, bIsExisting, somethingExisting, bothExisting, center;

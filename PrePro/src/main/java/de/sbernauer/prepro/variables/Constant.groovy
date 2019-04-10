@@ -1,8 +1,7 @@
-package de.sbernauer.prepro.variables
+package de.sbernauer.prepro.variables;
 
-import org.bytedeco.javacpp.annotation.Const
-import org.nd4j.linalg.api.ndarray.INDArray
-import org.nd4j.linalg.factory.Nd4j
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
 
 public class Constant extends Variable {
 
@@ -19,6 +18,10 @@ public class Constant extends Variable {
         return "Constant{" +
                 "ndArray=" + ndArray +
                 '}';
+    }
+
+    public double getDoubleValue() {
+        return ndArray.getDouble(0);
     }
 
     Constant add(Constant right) {
@@ -47,5 +50,21 @@ public class Constant extends Variable {
             throw new RuntimeException("Can only divide Constant with double value.");
         }
         return new Constant(ndArray.div(right.ndArray));
+    }
+
+    Vector3 add(Vector3 right) {
+        return right.add(this);
+    }
+
+    Vector3 sub(Vector3 right) {
+        return right.sub(this);
+    }
+
+    Vector3 mul(Vector3 right) {
+        return right.mul(this);
+    }
+
+    Vector3 div(Vector3 right) {
+        return right.div(this);
     }
 }

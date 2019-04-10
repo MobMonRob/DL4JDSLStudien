@@ -169,6 +169,13 @@ printStatement returns [PrintStatementNode result]:
 )
 ;
 
+throwStatement returns [ThrowStatementNode result]:
+'throw'
+(
+    STRING_LITERAL                { $result = new ThrowStatementNode($STRING_LITERAL.text.substring(1, $STRING_LITERAL.text.length() - 1)); } //cut off leading and trailing "
+)
+;
+
 debugStatement:
 d='debug'
 ;
@@ -185,6 +192,7 @@ term returns [ExpressionNode result]:
 factor                              { $result = $factor.result; }
 (
       ('*' factor)                  { $result = new MulNode($result, $factor.result); }
+    | ('**' factor)                 { $result = new LazyMulNode($result, $factor.result); }
     | ('X' factor)                  { $result = new CrossProductNode($result, $factor.result); }
     | ('/' factor)                  { $result = new DivNode($result, $factor.result); }
     | '==' factor                   { $result = new IsEqualNode($result, $factor.result); }
@@ -192,6 +200,8 @@ factor                              { $result = $factor.result; }
     | '<' factor                    { $result = new IsLessNode($result, $factor.result); }
     | '>' factor                    { $result = new IsGreaterNode($result, $factor.result); }
     | '>=' factor                   { $result = new IsGreaterOrEqualNode($result, $factor.result); }
+    | '&&' factor                   { $result = new LazyAndNode($result, $factor.result); }
+    | '||' factor                   { $result = new LazyOrNode($result, $factor.result); }
 )*
 ;
 
@@ -199,6 +209,7 @@ factor returns [ExpressionNode result]:
 IDENTIFIER                          { $result = new VariableConstantNode($IDENTIFIER.text); }
 | 'exists' '(' IDENTIFIER ')'       { $result = new ExistsNode($IDENTIFIER.text); }
 | functionCallStatement             { $result = $functionCallStatement.result; }
+| throwStatement                    { $result = $throwStatement.result; }
 | '(' expression ')'                { $result = $expression.result; }
 | NUMERIC_LITERAL                   { $result = new ConstantNode(Double.parseDouble($NUMERIC_LITERAL.text)); }
 ;

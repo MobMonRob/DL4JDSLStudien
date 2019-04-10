@@ -28,6 +28,22 @@ public class Vector3 extends Vector {
         return new Vector3(ndArray.mul(right.ndArray));
     }
 
+    public Vector3 add(Constant right) {
+        return new Vector3(ndArray.add(right.ndArray.getDouble(0)));
+    }
+
+    public Vector3 sub(Constant right) {
+        return new Vector3(ndArray.sub(right.ndArray.getDouble(0)));
+    }
+
+    public Vector3 mul(Constant right) {
+        return new Vector3(ndArray.mul(right.ndArray.getDouble(0)));
+    }
+
+    public Vector3 div(Constant right) {
+        return new Vector3(ndArray.div(right.ndArray.getDouble(0)));
+    }
+
     @Override
     public String toString() {
         return "Vector3{" +

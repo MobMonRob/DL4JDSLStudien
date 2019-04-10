@@ -18,4 +18,8 @@ public class ExistsFunction {
     public static boolean variableExists(String variableName) {
         return existingVariables.contains(variableName);
     }
+
+    public static void clearExistingVariables() {
+        existingVariables.clear();
+    }
 }

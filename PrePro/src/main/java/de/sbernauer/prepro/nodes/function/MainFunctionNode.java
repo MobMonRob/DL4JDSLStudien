@@ -25,6 +25,7 @@ public class MainFunctionNode extends FunctionNode {
     }
 
     public PreProDataSet executeMainFunction(PreProDataSet preProDataSet, FunctionTable functionTable, SymbolTable symbolTable) {
+        ExistsFunction.clearExistingVariables();
         for (ImportDefinition importDefinition : importDefinitions) {
             if (importDefinition.isOptional() && !preProDataSet.variableExists(importDefinition.getVariableName())) {
                 continue;

@@ -6,3 +6,5 @@ PrePro/target/*
 
 PrePro/temp.dataset
 PrePro/temp.dataset.meta
+/PrePro-Netbeans-Plugin/PreProEditor/nbproject/private/
+/PrePro-Netbeans-Plugin/PreProEditor/PreProSyntaxHighlighter/nbproject/private/
