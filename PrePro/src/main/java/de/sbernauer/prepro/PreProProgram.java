@@ -1,5 +1,6 @@
 package de.sbernauer.prepro;
 
+import de.sbernauer.prepro.dataset.FindNaNOrInfValues;
 import de.sbernauer.prepro.dataset.PreProDataSet;
 import de.sbernauer.prepro.nodes.MainNode;
 import de.sbernauer.prepro.nodes.SymbolTable;
@@ -35,6 +36,7 @@ public class PreProProgram {
         System.out.println("\n\nStarting PrePro-Interpreter...\n");
 
         System.out.println("\nInput-PreProDataSet contains:\n" + preProDataSet.getVariableNames());
+        FindNaNOrInfValues.checkForNaNOrInf(preProDataSet);
 
         PreProDataSet result = mainNode.execute(preProDataSet, symbolTable);
 
