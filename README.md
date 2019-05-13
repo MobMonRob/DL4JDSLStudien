@@ -48,7 +48,7 @@ So, when the PrePro-programm is defined, you can run it. You must provide a PreP
 
 Constants can be defined and set into the SymbolTable:
 
-```
+```java
 PreProProgram program = new PreProProgram("foo.prepro");
 SymbolTable symbolTable = new SymbolTable();
 symbolTable.setValue("pi", new Constant(Math.PI);
@@ -56,7 +56,7 @@ PreProDataSet result = program.execute(dataSet, symbolTable);
 double pi = result.getVariable()("pi").getDouble(0,0);
 ```
 
-Limitations: Only double constants available.
+Limitations: Only double constants available?
 
 ## Run the PrePro-program
 ```java
