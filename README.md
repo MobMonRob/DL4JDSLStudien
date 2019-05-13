@@ -45,8 +45,6 @@ function calculateDifference(vec3 p1, vec3 p2) returns vec3 {
 ```
 The operation “X” is a cross product. Note, that PrePro currently doesn't support overloading of functions.
 
-So, when the PrePro-programm is defined, you can run it. You must provide a PreProDataSet. The following code creates a PreProDataSet and calls a specific PrePro-progam.
-
 ## Constants
 
 Constants can be defined and set into the SymbolTable:
@@ -62,6 +60,8 @@ double pi = result.getVariable()("pi").getDouble(0,0);
 Limitations: Only double constants available?
 
 ## Run the PrePro-program
+To run the PrePro code you must provide a PreProDataSet. The following JAVA code creates a PreProDataSet and calls the PrePro-code.
+
 ```java
 INDArray p1 = Nd4j.create(new double[]{42, 0, 0, 1, 0, 0, 5, 0, 0, 6, 0, 0, 1, 2, 3}, new int[]{4, 3});
 INDArray p2 = Nd4j.create(new double[]{43, 0, 0, 44662, 0, 0, 6, 0, 0, 7, 0, 0}, new int[]{4, 3});
