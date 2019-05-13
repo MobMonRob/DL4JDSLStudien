@@ -22,9 +22,9 @@ vec3 result = p1 + p2;
 export result;
 ```
 
-## Buildin functions and operators
-
 It uses the variables p1 and p2 from the given PreProDataSet and calculates a resulting Vector3. Remind: All the variables are time-series, there is no need for a loop. The Interpreter will return a PreProDataSet containing the result.
+
+## Buildin functions and operators
 
 ## User defined Functions
 ```
