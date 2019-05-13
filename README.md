@@ -23,7 +23,7 @@ export result;
 
 It uses the variables p1 and p2 from the given PreProDataSet and calculates a resulting Vector3. Remind: All the variables are time-series, there is no need for a loop. The Interpreter will return a PreProDataSet containing the result.
 
-## PrePro also can handle functions:
+## Functions:
 ```
 function main() {
 	import vec3 p1, vec3 p2, vec3 p3;
@@ -43,6 +43,21 @@ function calculateDifference(vec3 p1, vec3 p2) returns vec3 {
 The operation “X” is a cross product. Note, that PrePro currently doesn't support overloading of functions.
 
 So, when the PrePro-programm is defined, you can run it. You must provide a PreProDataSet. The following code creates a PreProDataSet and calls a specific PrePro-progam.
+
+## Constants
+
+Constants can be defined and set into the SymbolTable:
+
+```
+PreProProgram program = new PreProProgram("foo.prepro");
+SymbolTable symbolTable = new SymbolTable();
+symbolTable.setValue("pi", new Constant(Math.PI);
+PreProDataSet result = program.execute(dataSet, symbolTable);
+double pi = result.getVariable()("pi").getDouble(0,0);
+```
+
+Limitations: Only double constants available.
+
 ## Run the PrePro-program
 ```java
 INDArray p1 = Nd4j.create(new double[]{42, 0, 0, 1, 0, 0, 5, 0, 0, 6, 0, 0, 1, 2, 3}, new int[]{4, 3});
