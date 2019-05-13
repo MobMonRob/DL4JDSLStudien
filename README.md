@@ -11,7 +11,9 @@ A PrePro-programm is written in a specific Domain Specific Language in textual f
 | PrePro-Netbeans-Plugin    | A plugin for the Netbeans IDE supporting syntax highliting and syntax error detection. |
 | Elaboration               | The document written for the university. It is written in german.                      |
 
-## A simple PrePro-Programm
+## The "Hello world" PrePro program
+
+## Simplified PrePro syntax
 ```
 import vec3 p1, p2;
 
@@ -20,10 +22,11 @@ vec3 result = p1 + p2;
 export result;
 ```
 
+## Buildin functions and operators
 
 It uses the variables p1 and p2 from the given PreProDataSet and calculates a resulting Vector3. Remind: All the variables are time-series, there is no need for a loop. The Interpreter will return a PreProDataSet containing the result.
 
-## Functions:
+## User defined Functions
 ```
 function main() {
 	import vec3 p1, vec3 p2, vec3 p3;
